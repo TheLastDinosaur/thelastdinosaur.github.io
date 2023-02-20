@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script>
+      AFRAME.registerComponent('myclickhandler', {
+              schema: {
+                txt: {default:'default'}
+              },        
+              init: function () {
+                var data = this.data;
+                var el = this.el;        
+                el.addEventListener('click', function () {            
+                 console.log(data.txt);
+                });        
+              }
+            });
+      </script>
+  </head>
+  <body>
+    <a-scene>
+      <a-assets>
+        <img id="button_1" src="https://play-lh.googleusercontent.com/1-hPxafOxdYpYZEOKzNIkSP43HXCNftVJVttoo4ucl7rsMASXW3Xr6GlXURCubE1tA=w3840-h2160-rw">
+
+        <video id="intro" muted="true" autoplay playsinline webkit-playsinline loop="false" src="/gurupriyam-arcard-sample/videos/gurupriyam-intro.mp4"></video>
+        <video id="mysuru-dancing-fountain" playsinline webkit-playsinline loop="true"  src="https://thelastdinosaur.github.io/gurupriyam-arcard-sample/videos/mysuru-dancing-fountain.mp4"></video>
+        
+    </a-assets>
+      <a-entity position="0 0 -10" rotation="90 0 0">
+        <!-- Introduction video -->
+      <a-video vidhandler position="-1 -1.65 0" width="7.62" height="4.286"  rotation="-90 -90 90" src="#intro"></a-video>
+      <a-video  width="2.54" height="1.42875" position="4 0 0" rotation="90 90 -90" src="#mysuru-dancing-fountain"></a-video>
+      <a-entity position="-6.2 0 -2.8">
+        <a-plane myclickhandler width="3" height="0.5" rotation="-90 0 0" position="0 0 0.6" src="#button_1"></a-plane>
+        <a-plane width="3" height="0.5" rotation="-90 0 0" position="0 0 0" src="#button_1"></a-plane>
+        <a-plane width="3" height="0.5" rotation="-90 0 0" position="0 0 1.2" src="#button_1"></a-plane>
+        <a-plane width="3" height="0.5" rotation="-90 0 0" position="0 0 1.8" src="#button_1"></a-plane>
+        <a-plane width="3" height="0.5" rotation="-90 0 0" position="0 0 2.4" src="#button_1"></a-plane>
+        <a-plane width="3" height="0.5" rotation="-90 0 0" position="0 0 3" src="#button_1"></a-plane>
+        <a-plane width="3" height="0.5" rotation="-90 0 0" position="0 0 3.6" src="#button_1"></a-plane>
+        <a-plane width="3" height="0.5" rotation="-90 0 0" position="0 0 4.2" src="#button_1"></a-plane>
+        <a-plane width="3" height="0.5" rotation="-90 0 0" position="0 0 4.8" src="#button_1"></a-plane>
+        <a-plane width="3" height="0.5" rotation="-90 0 0" position="0 0 5.4" src="#button_1"></a-plane>
+      </a-entity>
+    </a-entity>
+    </a-scene>
+  </body>
+</html>
