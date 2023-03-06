@@ -646,3 +646,9 @@ function StopAudio(whatAudio){
     audio.pause();
     audio.currentTime = 0;
 }
+
+
+WEBARSDK.SetStageReadyCallback(() =>{
+    console.info('Stage is ready now!!!');
+    document.getElementById('uiholder').style.display = "block";
+ });
