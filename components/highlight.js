@@ -47,3 +47,7 @@ AFRAME.registerComponent('highlight', {
     }
   }
 });
+
+
+
+
