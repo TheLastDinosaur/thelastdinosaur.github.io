@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- //Get AFRAME -->
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script src="./components/aframecomponents.js"></script>
+
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.13.1/dist/aframe-extras.min.js"></script>
+    <script src="/components/highlight.js"></script>
+    <!-- <script src="/components/button.js"></script> -->
+    <link rel="stylesheet" href="./css/styles.css">
+
+    <title>Ludo AR Game</title>
+</head>
+
+<body>
+    <div class="uipanel" id="uiholder">
+        <div  id="start-ui" class="middleui ">
+                <img src="./textures/computer.png" alt="Play Against Computer" onclick="ChooseGameMode(0)">
+                <img src="./textures/local.png" alt="Local Multiplayer" onclick="ChooseGameMode(1)">
+                <img src="./textures/online.png" alt="Online Multiplayer" onclick="ChooseGameMode(2)">
+                <!-- <div class="uibut" onclick="ChooseGameMode(0)">Play against Computer</div>
+                <div class="uibut" onclick="ChooseGameMode(1)">Local Multiplayer</div>
+                <div class="uibut" onclick="ChooseGameMode(2)">Online Multiplayer</div> -->
+                <!-- <img src="./textures/button.png" alt=""> -->
+    
+        </div>
+        <div  id="winner-ui-you" class="winnerui nodisp" >
+            <h1 id="winnername" style="color: gold; margin-bottom: 0.1rem; text-align: center;">User Name</h1>
+            <h2 style="text-align: center; color: white;">Winner Winner <br>Daal Chawal ka Dinner</h2>
+            <img src="./textures/play-again.png" alt="Online Multiplayer" onclick="PlayAgain()">
+            <div class="winnerimage">
+                <img src="./textures/winner-stars.png" alt="">
+            </div>
+    
+    
+    </div>
+    
+        <div class="topui">
+            <img src="./textures/branding.png" alt="AR Ludo Fantasy by DARE DIGITAL" width="100%" height="auto">
+        </div>
+        <div id="bottomui" class="bottomui">
+                
+            <img src="./textures/bottom_layer.png" alt="" width="100%" height="auto">
+    
+            <div class="buttons">
+                <div class="usertext">
+                    <p style="text-align:left; font-weight: bold;" id="whoseturn">Awaiting...</p>
+                </div>
+                <div class="ludoimage">
+                    <img id="dice-information" src="./textures/dice_info_1.png" alt="">
+                </div>
+                <div class="ludobutton">
+                    <button class="say-hi-button" onclick="LudoBrain()" id="rolldice">Roll Dice</button> 
+                </div>
+            </div>
+            <div class="timer" id="timer">
+                0
+            </div>
+    
+        </div>
+    
+    </div>
+    
+    <a-scene vr-mode-ui="enabled: false" renderer="colorManagement: true; toneMapping: ACESFilmic;" cursor="rayOrigin: mouse;" raycaster="objects: .rayclick, .raycastable, [button];" stats>
+        <a-assets>
+
+            <!-- Ludo GLTF Assets -->
+            <a-asset-item id="ludo_board" src="./ludo-assets/models/base_board.gltf"></a-asset-item>
+            <a-asset-item id="red-villa" src="./ludo-assets/models/red_villa.gltf"></a-asset-item>
+            <a-asset-item id="green-villa" src="./ludo-assets/models/green_villa.gltf"></a-asset-item>
+            <a-asset-item id="yellow-villa" src="./ludo-assets/models/yellow_villa.gltf"></a-asset-item>
+            <a-asset-item id="blue-villa" src="./ludo-assets/models/blue_villa.gltf"></a-asset-item>
+            <a-asset-item id="home-of-pawns" src="./ludo-assets/models/home_of_pawns.gltf"></a-asset-item>
+            <a-asset-item id="normal-path" src="./ludo-assets/models/normal_path.gltf"></a-asset-item>
+            <a-asset-item id="safe-path" src="./ludo-assets/models/safe_zone.gltf"></a-asset-item>
+            <a-asset-item id="own-path-red" src="./ludo-assets/models/own_path_red.gltf"></a-asset-item>
+            <a-asset-item id="own-path-green" src="./ludo-assets/models/own_path_green.gltf"></a-asset-item>
+            <a-asset-item id="own-path-yellow" src="./ludo-assets/models/own_path_yellow.gltf"></a-asset-item>
+            <a-asset-item id="own-path-blue" src="./ludo-assets/models/own_path_blue.gltf"></a-asset-item>
+            <!-- pawns -->
+            <a-asset-item id="red-pawn" src="./ludo-assets/models/red_pawn.gltf"></a-asset-item>
+            <a-asset-item id="green-pawn" src="./ludo-assets/models/green_pawn.gltf"></a-asset-item>
+            <a-asset-item id="yellow-pawn" src="./ludo-assets/models/yellow_pawn.gltf"></a-asset-item>
+            <a-asset-item id="blue-pawn" src="./ludo-assets/models/blue_pawn.gltf"></a-asset-item>
+
+            <a-asset-item id="dice" src="./ludo-assets/models/scene.gltf"></a-asset-item>
+
+            <!-- Ludo GLTF Assets -->
+
+            <a-mixin id="board-mat" material="src: ./ludo-assets/board_base_diffuse.png; normalMap:  ./ludo-assets/board_base_normal.png; normalScale: 0.1 0.1"></a-mixin>
+            <!-- UI IMAGE -->
+            <img id="titleui" src="/textures/ludo-title.png">
+            <img id="yourturn" src="/textures/your_turn.png">
+
+            <!-- dice ui images -->
+            <img id="dice1" src="/textures/dice_info_1.png">
+            <img id="dice2" src="/textures/dice_info_2.png">
+            <img id="dice3" src="/textures/dice_info_3.png">
+            <img id="dice4" src="/textures/dice_info_4.png">
+            <img id="dice5" src="/textures/dice_info_5.png">
+            <img id="dice6" src="/textures/dice_info_6.png">
+
+        
+        </a-assets>
+
+
+        <!-- lights  -->
+        <a-entity light="type: ambient; color: #fff; intensity: 4"></a-entity>\
+        <a-entity light="intensity: 1" visible="" id="spot-light" position="0 3 -3"></a-entity>
+        <!-- lights -->
+
+
+        <!-- <a-entity light="type: directional; intensity: 3" visible="" id="spot-light"></a-entity> -->
+        <a-entity position="0 0 -14" id="game-manager">
+            <a-entity id="text" text-geometry="value: Dog?; font: #optimerBoldFont"></a-entity>
+            <!-- Main Ui -->
+            <a-entity visible="false" id="main_ui" position="0 5 0" animation="property: scale; from: 0 0 0; to: 1 1 1; dur: 750; delay: 500; easing: easeInOutSine;">
+
+                <a-plane width="10" height="10" rotation="0 0 0 " material="shader: flat; src: #titleui; transparent: false; alphaTest: 0.5"></a-plane>
+
+                <a-entity id="menu_start" rotation="90 0 0"
+                    animation="property: rotation; from: -90 0 0; to: 0 0 0; dur: 750; delay: 500">
+                    <a-entity button="label: START; func: ChooseMode" height="2" position="0 -2 0"></a-entity>
+                </a-entity>
+
+                <a-entity id="menu_mode" visible="false" rotation="90 0 0"
+                    animation="property: rotation; from: -90 0 0; to: 0 0 0; dur: 750; delay: 500">
+                    <a-entity button="label: OFFLINE; func: StartGame" height="2" position="-2 -2 0"></a-entity>
+                    <a-entity button="label: ONLINE" height="2" position="2 -2 0"></a-entity>
+                </a-entity>                
+            </a-entity>
+
+            <!-- In Game UI -->
+            <a-entity id="ingame_ui" visible="false" position="0 5 0">
+                
+                <!-- This is your turn -->
+                <a-entity id="your_turn" visible="false">
+                    <a-plane 
+                    width="10" height="2.2" rotation="0 0 0 " 
+                    material="shader: flat; src: #yourturn; transparent: false; alphaTest: 0.5"
+                    animation="property: scale; from: 0 0 0; to: 1 1 1; dur: 750; delay: 500; easing: easeInOutSine;"
+                    position="0 5 0"
+                    >
+                    <a-text value="Your Turn" scale="3 3 1" align="center" position="0 0 0.1"> </a-text>
+                </a-plane>
+                <a-entity id="roll_menu" rotation="90 0 0"
+                        animation="property: rotation; from: -90 0 0; to: 0 0 0; dur: 750; delay: 500">
+                        <a-entity button="label: ROLL DICE; func: RollDice" height="2" position="0 2 0"></a-entity>
+                </a-entity>
+                </a-entity>
+
+                <!-- opponents tur -->
+                <a-entity id="opponents_turn" visible="false">
+                    <a-plane 
+                    width="10" height="2.2" rotation="0 0 0 " 
+                    material="shader: flat; src: #yourturn; transparent: false; alphaTest: 0.5"
+                    animation="property: scale; from: 0 0 0; to: 1 1 1; dur: 750; delay: 500; easing: easeInOutSine;"
+                    position="0 5 0"
+                    >
+                    <a-text id="opponent_text" value="Your Turn" scale="3 3 1" align="center" position="0 0 0.1"> </a-text>
+                </a-plane>
+                <!-- <a-entity id="roll_menu" rotation="90 0 0"
+                        animation="property: rotation; from: -90 0 0; to: 0 0 0; dur: 750; delay: 500">
+                        <a-entity button="label: ROLL DICE; func: RollDice" height="2" position="0 2 0"></a-entity>
+                </a-entity> -->
+                </a-entity>
+
+                <!-- Dice Information -->
+                <a-entity id="dice_info" visible="false">
+                    <a-plane id="dice_value"
+                    width="5" height="5" rotation="0 0 0 " 
+                    material="shader: flat; src: #dice1; transparent: false; alphaTest: 0.5"
+                    animation="property: scale; from: 0 0 0; to: 1 1 1; dur: 750; delay: 500; easing: easeInOutSine;"
+                    position="0 5 0"
+                    ></a-plane>
+                </a-entity>
+            </a-entity>
+
+            <!-- victory ui -->
+            <a-entity visible="false" id="victory_ui" position="0 5 0" animation="property: scale; from: 0 0 0; to: 1 1 1; dur: 750; delay: 500; easing: easeInOutSine;">
+
+                <a-plane width="10" height="10" rotation="0 0 0 " material="shader: flat; src: #titleui; transparent: false; alphaTest: 0.5"></a-plane>
+                <a-text id="victorytext" value="You Won" scale="3 3 1" align="center" position="0 -1 0.1"> </a-text>
+                <a-entity id="menu_restart" rotation="90 0 0"
+                    animation="property: rotation; from: -90 0 0; to: 0 0 0; dur: 750; delay: 500">
+                    <a-entity button="label: REPLAY; func: ChooseMode" height="2" position="0 -3 0"></a-entity>
+                </a-entity>
+
+                              
+            </a-entity>
+
+
+            <a-entity id="board" visible="true">
+
+                <a-entity id="board-design" position="0 -0.463 0">
+                    <a-entity id="dicemodel" gltf-model="#dice" scale="1 1 1" position="0 1.2 0" cube-env-map="path: ./env-map/; extension: jpg;"></a-entity>
+
+                    <!-- <a-entity gltf-model="#ludo_board" cube-env-map="path: https://mkwy.fr/assets/cube-env/; extension: jpg; reflectivity: 0.9;"></a-entity> -->
+                    <!-- <a-entity id="outboard" obj-model="obj: #ludo-board;" mixin="board-mat" scale="0.5 0.5 0.5" position="0 -0.36 0"></a-entity> -->
+                    <a-entity gltf-model="#ludo_board" scale="0.5 0.5 0.5" cube-env-map="path: ./env-map/; extension: jpg;"></a-entity>
+
+                    <a-entity id="player-1" envmap position="-4.49311 0.1 4.48936" gltf-model="#red-villa" scale="0.5 0.5 0.5"></a-entity>
+                    <a-entity id="player-2" position="-4.501 0.1 -4.47523" gltf-model="#green-villa" scale="0.5 0.5 0.5" cube-env-map="path: ./env-map/; extension: jpg;"></a-entity>
+                    <a-entity id="player-3" position="4.48 0.1 -4.47523" gltf-model="#yellow-villa" scale="0.5 0.5 0.5" cube-env-map="path: ./env-map/; extension: jpg;"></a-entity>
+                    <a-entity id="player-4" position="4.48 0.1 4.48222" gltf-model="#blue-villa" scale="0.5 0.5 0.5" cube-env-map="path: ./env-map/; extension: jpg;"></a-entity>
+
+                    <a-entity position="0 0.4 0" gltf-model="#home-of-pawns" scale="0.5 0.5 0.5" cube-env-map="path: ./env-map/; extension: jpg;"></a-entity>
+
+                    <!-- paths -->
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="-1 0.194 7"
+                    ></a-entity>
+                    <a-entity gltf-model="#own-path-red" scale="0.5 0.5 0.5"
+                    position="-1 0.194 6"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="-1 0.194 5"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="-1 0.194 4"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="-1 0.194 3"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="-1 0.194 2"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="-2 0.194 1"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="-3 0.194 1"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="-4 0.194 1"
+                    ></a-entity>
+                    <a-entity gltf-model="#safe-path" scale="0.5 0.5 0.5"
+                    position="-5 0.194 1"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="-6 0.194 1"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="-7 0.194 1"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="-7 0.194 0"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="-7 0.194 -1"
+                    ></a-entity>
+                    <a-entity gltf-model="#own-path-green" scale="0.5 0.5 0.5"
+                    position="-6 0.194 -1"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="-5 0.194 -1"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="-4 0.194 -1"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="-3 0.194 -1"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="-2 0.194 -1"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="-1 0.194 -2"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="-1 0.194 -3"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="-1 0.194 -4"
+                    ></a-entity>
+                    <a-entity gltf-model="#safe-path" scale="0.5 0.5 0.5"
+                    position="-1 0.194 -5"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="-1 0.194 -6"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="-1 0.194 -7"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="0 0.194 -7"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="1 0.194 -7"
+                    ></a-entity>
+                    <a-entity gltf-model="#own-path-yellow" scale="0.5 0.5 0.5"
+                    position="1 0.194 -6"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="1 0.194 -5"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="1 0.194 -4"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="1 0.194 -3"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="1 0.194 -2"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="2 0.194 -1"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="3 0.194 -1"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="4 0.194 -1"
+                    ></a-entity>
+                    <a-entity gltf-model="#safe-path" scale="0.5 0.5 0.5"
+                    position="5 0.194 -1"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="6 0.194 -1"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="7 0.194 -1"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="7 0.194 0"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="7 0.194 1"
+                    ></a-entity>
+                    <a-entity gltf-model="#own-path-blue" scale="0.5 0.5 0.5"
+                    position="6 0.194 1"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="5 0.194 1"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="4 0.194 1"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="3 0.194 1"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="2 0.194 1"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="1 0.194 2"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="1 0.194 3"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="1 0.194 4"
+                    ></a-entity>
+                    <a-entity gltf-model="#safe-path" scale="0.5 0.5 0.5"
+                    position="1 0.194 5"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="1 0.194 6"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="1 0.194 7"
+                    ></a-entity>
+                    <a-entity gltf-model="#normal-path" scale="0.5 0.5 0.5"
+                    position="0 0.194 7"
+                    ></a-entity>
+                    <!-- own paths to home -->
+                    <a-entity gltf-model="#own-path-red" scale="0.5 0.5 0.5"
+                    position="0 0.194 6"
+                    ></a-entity>
+                    <a-entity gltf-model="#own-path-red" scale="0.5 0.5 0.5"
+                    position="0 0.194 5"
+                    ></a-entity>
+                    <a-entity gltf-model="#own-path-red" scale="0.5 0.5 0.5"
+                    position="0 0.194 4"
+                    ></a-entity>
+                    <a-entity gltf-model="#own-path-red" scale="0.5 0.5 0.5"
+                    position="0 0.194 3"
+                    ></a-entity>
+                    <a-entity gltf-model="#own-path-red" scale="0.5 0.5 0.5"
+                    position="0 0.194 2"
+                    ></a-entity>
+
+                    <a-entity gltf-model="#own-path-yellow" scale="0.5 0.5 0.5"
+                    position="0 0.194 -6"
+                    ></a-entity>
+                    <a-entity gltf-model="#own-path-yellow" scale="0.5 0.5 0.5"
+                    position="0 0.194 -5"
+                    ></a-entity>
+                    <a-entity gltf-model="#own-path-yellow" scale="0.5 0.5 0.5"
+                    position="0 0.194 -4"
+                    ></a-entity>
+                    <a-entity gltf-model="#own-path-yellow" scale="0.5 0.5 0.5"
+                    position="0 0.194 -3"
+                    ></a-entity>
+                    <a-entity gltf-model="#own-path-yellow" scale="0.5 0.5 0.5"
+                    position="0 0.194 -2"
+                    ></a-entity>
+
+                    <a-entity gltf-model="#own-path-green" scale="0.5 0.5 0.5"
+                    position="-6 0.194 0"
+                    ></a-entity>
+                    <a-entity gltf-model="#own-path-green" scale="0.5 0.5 0.5"
+                    position="-5 0.194 0"
+                    ></a-entity>
+                    <a-entity gltf-model="#own-path-green" scale="0.5 0.5 0.5"
+                    position="-4 0.194 0"
+                    ></a-entity>
+                    <a-entity gltf-model="#own-path-green" scale="0.5 0.5 0.5"
+                    position="-3 0.194 0"
+                    ></a-entity>
+                    <a-entity gltf-model="#own-path-green" scale="0.5 0.5 0.5"
+                    position="-2 0.194 0"
+                    ></a-entity>
+
+                    <a-entity gltf-model="#own-path-blue" scale="0.5 0.5 0.5"
+                    position="2 0.194 0"
+                    ></a-entity>
+                    <a-entity gltf-model="#own-path-blue" scale="0.5 0.5 0.5"
+                    position="3 0.194 0"
+                    ></a-entity>
+                    <a-entity gltf-model="#own-path-blue" scale="0.5 0.5 0.5"
+                    position="4 0.194 0"
+                    ></a-entity>
+                    <a-entity gltf-model="#own-path-blue" scale="0.5 0.5 0.5"
+                    position="5 0.194 0"
+                    ></a-entity>
+                    <a-entity gltf-model="#own-path-blue" scale="0.5 0.5 0.5"
+                    position="6 0.194 0"
+                    ></a-entity>
+
+
+
+
+
+                    
+
+
+
+
+
+
+
+                    
+
+
+
+                </a-entity>
+
+            <!-- Yellow Pawns -->
+
+            <a-entity id="yellowPawn1" position="3.5 0.114 -3.5" 
+            class="rayclick" 
+             gltf-model="#yellow-pawn" 
+            scale="0.5 0.5 0.5">
+
+            </a-entity>
+            <a-entity id="yellowPawn2" position="5.5 0.114 -3.5" 
+            class="rayclick" 
+             gltf-model="#yellow-pawn" 
+            scale="0.5 0.5 0.5">
+
+            </a-entity>
+            <a-entity id="yellowPawn3" position="5.5 0.114 -5.5" 
+            class="rayclick" 
+             gltf-model="#yellow-pawn" 
+            scale="0.5 0.5 0.5">
+
+            </a-entity>
+            <a-entity id="yellowPawn4" position="3.5 0.114 -5.5" 
+            class="rayclick" 
+             gltf-model="#yellow-pawn" 
+            scale="0.5 0.5 0.5">
+
+            </a-entity>
+
+            
+            <!-- Blue Pawns -->
+            <a-entity id="bluePawn1" position="5.5 0.114 3.5"  
+            class="rayclick"
+             gltf-model="#blue-pawn" 
+            scale="0.5 0.5 0.5">
+
+            </a-entity>
+            <a-entity id="bluePawn2" position="3.5 0.114 3.5" 
+            class="rayclick" 
+             gltf-model="#blue-pawn" 
+            scale="0.5 0.5 0.5">
+
+            </a-entity>
+            <a-entity id="bluePawn3" position="3.5 0.114 5.5"  
+            class="rayclick"
+             gltf-model="#blue-pawn" 
+            scale="0.5 0.5 0.5">
+
+            </a-entity>
+            <a-entity id="bluePawn4" position="5.5 0.114 5.5"  
+            class="rayclick"
+             gltf-model="#blue-pawn" 
+            scale="0.5 0.5 0.5">
+
+            </a-entity>
+
+                        
+            <!-- Green Pawn1 -->
+            <a-entity id="greenPawn1" position="-5.5 0.114 -3.5" 
+            class="rayclick" 
+             gltf-model="#green-pawn" 
+            scale="0.5 0.5 0.5">
+
+            </a-entity>
+            <a-entity id="greenPawn2" position="-3.5 0.114 -3.5" 
+            class="rayclick" 
+             gltf-model="#green-pawn" 
+            scale="0.5 0.5 0.5">
+
+            </a-entity>
+            <a-entity id="greenPawn3" position="-3.5 0.114 -5"  
+            class="rayclick"
+             gltf-model="#green-pawn" 
+            scale="0.5 0.5 0.5">
+
+            </a-entity>
+            <a-entity id="greenPawn4" position="-5.5 0.114 -5"  
+            class="rayclick"
+             gltf-model="#green-pawn" 
+            scale="0.5 0.5 0.5">
+
+            </a-entity>
+
+
+            <!-- red pawns -->
+
+            <a-entity id="redPawn1" 
+            position="-3.6 0.114 5.375" class="rayclick" 
+            gltf-model="#red-pawn" 
+            scale="0.5 0.5 0.5" cube-env-map="path: ./env-map/; extension: jpg;"></a-entity>
+
+            <a-entity id="redPawn2" position="-3.5 0.114 3.5" class="rayclick"
+            scale="0.5 0.5 0.5"
+                gltf-model="#red-pawn"
+                >
+
+            </a-entity>
+
+            <a-entity id="redPawn3" position="-5.5 0.114 5.5" class="rayclick"  
+            scale="0.5 0.5 0.5"
+            gltf-model="#red-pawn">
+
+            </a-entity>
+
+
+            <a-entity id="redPawn4" position="-5.5 0.114 3.5" class="rayclick" 
+            scale="0.5 0.5 0.5"
+            gltf-model="#red-pawn">
+
+            </a-entity>
+
+
+            
+
+
+
+            <!-- position reference plane/ -->
+            <!-- <a-entity geometry="primitive: plane" rotation="-90 0 0" position="-1 0 6" id="reference"></a-entity> -->
+            
+            </a-entity>
+            <!-- <a-plane color="red" rotation="-90 0 0" width="15" height="15" position="0 -0.11 0"> </a-plane> -->
+
+        </a-entity>
+        <a-entity camera="" position="0 5 0" wasd-controls=""  look-controls="" aframe-injected="" data-aframe-inspector-original-camera="" id="camera"></a-entity>
+
+    </a-scene>
+
+
+
+
+
+        <!-- load audio files -->
+        <audio src="./audio/success-fanfare-trumpets-6185.mp3" id="audio-winner" preload>
+        </audio>
+        <audio src="./audio/mixkit-cool-interface-click-tone-2568.wav" id="audio-click" preload>
+        </audio>
+        <audio src="./audio/cartoon-jump-6462.mp3" id="audio-move" preload>
+        </audio>
+        <audio src="./audio/rolling-dice-2-102706.mp3" id="audio-dice" preload>
+        </audio>
+        <audio src="./audio/funny-sound-effect-for-quotjack-in-the-boxquot-sound-ver1-110923.mp3" id="audio-die" preload>
+        </audio>
+        <audio src="./audio/tickingbuzzer-75859.mp3" id="audio-time_noti" preload>
+        </audio>
+        <audio src="./audio/success-1-6297.mp3" id="reachedhome" preload>
+        </audio>
+        <audio src="./audio/failure-drum-sound-effect-2-7184.mp3" id="failure" preload>
+        </audio>
+        <audio src="./audio/click-124467.mp3" id="spawn" preload>
+        </audio>
+
+
+        
+
+    <script src="./components/html2canvas.min.js"></script>
+<script src="./components/dare-ludo-ar.js"></script>
+
+
+
+Sound Effect from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=6297">Pixabay</a>
+
+
+</body>
+
+</html>
