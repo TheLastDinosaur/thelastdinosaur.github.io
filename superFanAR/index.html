@@ -1,0 +1,124 @@
+<html>
+  <head>
+    <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
+    <script type="importmap">
+    {
+      "imports": {
+	"three": "https://unpkg.com/three@0.147.0/build/three.module.js",
+	"three/addons/": "https://unpkg.com/three@0.147.0/examples/jsm/",
+	"mindar-face-three":"https://cdn.jsdelivr.net/npm/mind-ar@1.2.0/dist/mindar-face-three.prod.js"
+      }
+    }
+    </script>
+
+    <script type="module">
+      import * as THREE from 'three';
+      import { MindARThree } from 'mindar-face-three';
+      import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+      THREE.ColorManagement.enabled = true;
+      
+      const loader = new GLTFLoader();
+      
+      const mindarThree = new MindARThree({
+	container: document.querySelector("#container"),
+      });
+      const {renderer, scene, camera} = mindarThree;
+
+      const light = new THREE.HemisphereLight( 0xffffff, 0xbbbbff, 1 );
+      scene.add(light);
+
+      const faceMesh = mindarThree.addFaceMesh();
+      const texture = new THREE.TextureLoader().load('./assets/face-mask-csk.png');
+      faceMesh.material.map = texture;
+      faceMesh.material.transparent = true;
+      faceMesh.material.needsUpdate = true;
+      scene.add(faceMesh);
+      
+
+      const geometry = new THREE.PlaneGeometry( 1, 1 );
+      const fanTexture = new THREE.TextureLoader().load('./assets/superfan-csk.png')
+      const material = new THREE.MeshBasicMaterial( {side: THREE.DoubleSide, map:fanTexture, transparent:true, reflectivity:0} );
+      const plane = new THREE.Mesh( geometry, material );
+      // const box = new THREE.BoxHelper( cube, 0xffff00 );
+      plane.scale.set(15,5,10);
+      plane.position.set(0,10,4);
+// scene.add( box );
+      faceMesh.add(plane);
+
+
+          // loader.load(
+          // // resource URL
+          // './assets/helmet.glb',
+          // // called when the resource is loaded
+          // function ( gltf ) {
+          // gltf.scene.scale.set(0.12, 0.12, 0.12);
+          // gltf.scene.rotation.set(0,135,0);
+          // gltf.scene.position.set(0,8,-5);
+          // gltf.scene.traverse((child) => {
+          //                 if (child.isMesh){ // a material i created in the code earlier
+          //                 child.renderOrder = 3;
+          //                 }
+          //             });
+
+          // faceMesh.add( gltf.scene );
+
+          // gltf.animations; // Array<THREE.AnimationClip>
+          // gltf.scene; // THREE.Group
+          // gltf.scenes; // Array<THREE.Group>
+          // gltf.cameras; // Array<THREE.Camera>
+          // gltf.asset; // Object
+
+          // },);
+
+        loader.load(
+        // resource URL
+        './assets/headOccluder.glb',
+        // called when the resource is loaded
+        function ( gltf ) {
+          gltf.scene.scale.set(1.3, 1.3, 1.3);
+          // gltf.scene.rotation.set(0,135,0);
+          gltf.scene.position.set(0,0,6);
+          faceMesh.add( gltf.scene );
+          gltf.scene.traverse((child) => {
+                              if (child.isMesh){ child.material.colorWrite = false; // a material i created in the code earlier
+                              child.renderOrder = 2;}
+                          });
+        
+          gltf.animations; // Array<THREE.AnimationClip>
+          gltf.scene; // THREE.Group
+          gltf.scenes; // Array<THREE.Group>
+          gltf.cameras; // Array<THREE.Camera>
+          gltf.asset; // Object
+
+        },);
+      
+
+        renderer.outputEncoding = THREE.sRGBEncoding; // optional with post-processing
+  const start = async() => {
+	await mindarThree.start();
+	renderer.setAnimationLoop(() => {
+	  renderer.render(scene, camera);
+    // console.log(faceMesh.position);
+	});
+      }
+      start();
+    </script>
+
+    <style>
+      body {
+	margin: 0;
+      }
+      #container {
+	width: 100vw;
+	height: 100vh;
+	position: relative;
+	overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+    </div>
+  </body>
+</html>
+
