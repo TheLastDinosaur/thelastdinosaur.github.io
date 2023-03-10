@@ -24,9 +24,35 @@
                  }
                  });
         </script>
+
+        <style>
+ #play-button {
+            position: fixed;
+            top: calc(45% - 1em);
+            left: calc(45% - 2em);
+            /* width: 4em; */
+            /* height: 2em; */
+            z-index: 10;
+    }
+button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 1.6rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+}
+
+        </style>
   </head>
   <body>
-    <a-scene mindar-image="imageTargetSrc: ./targets.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+    <button id="play-button">Experience in AR</button>
+    <a-scene mindar-image="imageTargetSrc: ./targets.mind; filterMinCF:0.1; autoStart: false" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
       <a-assets>
         <a-asset-item id="logo" src="./assets/gurupriyam_logo.glb"></a-asset-item>
         <video id="mysore" autoplay playsinline webkit-playsinline src="./assets/mysuru-dancing-fountain.mp4"></video>
@@ -44,3 +70,26 @@
     </a-scene>
   </body>
 </html>
+
+
+<script>
+            
+    // window.addEventListener('click', function () {
+   document.getElementById('play-button').addEventListener("click", function(e){
+       // this.style.display = 'none';
+    const sceneEl = document.querySelector('a-scene');
+	const arSystem = sceneEl.systems["mindar-image-system"];
+    document.getElementById('play-button').style.display = 'none';
+        arSystem.start();
+         var video = document.querySelector('#mysore');
+        //  alert("PRESSED");
+         if (video.paused == true) {
+           video.play();
+           } else {
+           video.pause();
+         }
+       }, false);
+      
+
+
+     </script>
