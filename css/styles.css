@@ -251,3 +251,39 @@ font-size: 2rem;
 
 }
 
+h2{
+  color: white;
+  text-align: center;
+  font-size: 2rem;
+  padding: 0 1rem;
+}
+p{
+  color: white;
+  padding-left: 1rem;
+}
+.joinedplayer{
+  padding: 0 1rem;
+  padding-right: 2rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+input[type=text] {
+  width: 86%;
+  padding: 16px 20px;
+  margin: 8px 16px;
+  box-sizing: border-box;
+  border-radius: 1rem;
+  border: 0;
+  background-color: #e4a9e0;
+  color: #bb27b2;
+}
+.icons {
+  width: 46px !important;
+  border-radius: 8px;
+}
+.icons img{
+  width: 32px;
+  border-radius: 8px;
+}

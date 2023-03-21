@@ -18,6 +18,7 @@ AFRAME.registerComponent('enable-click', {
             PlayAudio('spawn');
             StopAudio('audio-time_noti');
             self.el.setAttribute('animation', {'property': 'position', 'to': self.data.towhere});
+            UpdateSpawn(self.el.id, self.data.towhere);
             console.log(self.el.object3D.position);
             AnotherChance();
             // gameManager.emit(self.el.id);

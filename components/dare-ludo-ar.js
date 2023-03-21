@@ -1,7 +1,10 @@
+
 var gameModes = ['single', 'multi', 'online'];
 var selectedMode = 1;
 var numberOfPlayers = 1;
 var isOnline = false;
+var totalKills = [];
+
 
 var pawnsforRobo = [];
 var gameTimer;
@@ -107,20 +110,30 @@ const ChooseGameMode = function(modeId){
     //Get the button click and choose the mode as per the value given to function
     //Set numberOfPlayers based on mode.
     selectedMode = modeId;
-    
-    if(modeId > 0){
+    console.log("MODE CHANGED TO" + selectedMode);
+    if(modeId == 1){
         allPlayers = ["Red", "Green", "Yellow", "Blue" ];
     }
 
     if(modeId == 2){
-        alert("Not available at the moment");
-        return;
+        var user = GetUserName();
+        whoAmI = 0;
+        if(typeof user === 'undefined' || user === ""){
+            document.getElementById("online-mode").className= "middleui uiappear";
+            document.getElementById("online-name-panel").className= "middleui uiappear";
+        } else{
+            document.getElementById("online-mode").className= "middleui uiappear";
+        }
+        // alert("Not available at the moment");
+        // location.href = "online.html";
+        // return;
+    } else {
+        
+        document.getElementById("bottomui").className += " uiappear";
+        document.getElementById('whoseturn').innerHTML = allPlayers[0];    
     }
-
+    document.getElementById('start-ui').className = "middleui uidisappear";
     // document.getElementById("start-ui").style.display = "none";
-    document.getElementById('start-ui').className = "middleui uidisappear"
-    document.getElementById("bottomui").className += " uiappear";
-    document.getElementById('whoseturn').innerHTML = allPlayers[0];
 
     // pawnId = redOnBoard;
     // ReachedHome('redPawn1')
@@ -151,8 +164,14 @@ const LudoBrain = function(){
             SpawnOrMove(RollDice());
             // SpawnOrMove(RollDice());
         //if local multiplayer set number of players to 4 and play all by user
-        } else if(selectedMode == 3){
+        } else if(selectedMode == 2){
         //if online player set isOnline to true and set numberofplayerr to 1
+            if(currentPlayer === whoAmI){
+                SpawnOrMove(RollDice());
+                GameTimer();
+            }
+            // alert("MOdE IS ONLIE");
+
         } else {
             //default game mode to single local player
         }
@@ -200,6 +219,12 @@ const ChangePlayer = function(){
         currentPlayer = 0;
     }
 
+    if(selectedMode == 2){
+        UpdatePlayer(currentPlayer);
+        clearInterval(countdownTimer);
+
+    }
+
     document.getElementById('whoseturn').innerHTML=  allPlayers[currentPlayer];
 
     RemoveTrigger();
@@ -208,6 +233,8 @@ const ChangePlayer = function(){
     } else if(selectedMode == 0 && currentPlayer > 0){
 
         LudoBrain();
+    } else if(selectedMode == 2 && currentPlayer !== whoAmI) {
+        document.getElementById('rolldice').style.display = 'none';
     } else {
         document.getElementById('rolldice').style.display = 'block';
     }
@@ -228,6 +255,11 @@ const RollDice = function(){
      
      if(randomNumber != 6){
         whenWasLastSix++;
+     }
+
+     //if onlie mode update doc value
+     if(selectedMode == 2){
+        UpdateDice(randomNumber);
      }
 
      DiceAnim(randomNumber).then((value)=>{
@@ -338,6 +370,10 @@ const EnableMoving = function(whom, where){
 
 //Make the Desired Move for Selected Pawns
 const MakeAMove = function(whom, steps){
+    totalKills = [];
+    if(selectedMode===2){
+        UpdateMove(whom, steps, pawnId, pathId);
+    }
     StopAudio('audio-time_noti');
 
     // PlayAudio('audio-click');
@@ -360,6 +396,9 @@ const MakeAMove = function(whom, steps){
      
      setTimeout(function(){
         CheckForKill(whom).then((killed)=>{
+            if(selectedMode === 2){
+                KillOG(totalKills);
+            } 
             if(!gameOver){
                 if(steps >=6){
                     canPlayAgain = true;
@@ -383,7 +422,11 @@ const MakeAMove = function(whom, steps){
 const RemoveTrigger = function (){
     var diceUi = document.getElementById('dice-information');
     diceUi.style.display = "none";
-    GameTimer();
+    if(selectedMode  == 2){
+        
+    }else {
+        GameTimer();
+    }
     console.log("CALLED TO REMOVE TRIGGER");
     var allPlayers = document.querySelectorAll(".rayclick");
 
@@ -461,6 +504,7 @@ async function CheckForKill(killer){
 
 async function checkEnemyPosition (enemies, pos){
     var value = false
+
     console.log(enemies);
     for (key in enemies){
         var enemeyPos = document.getElementById(key).getAttribute("position");
@@ -475,14 +519,17 @@ async function checkEnemyPosition (enemies, pos){
             document.getElementById(key).setAttribute("animation", {'property': 'position', 'to': enemies[key].initPos});
 
             console.log("I Killed " + key);
+
             console.log("My Enemies oonBoard value");
             enemies[key].position = 0;
             enemies[key].onBoard = false;
+            totalKills.push({enemies, key})
             // await KillTheEnemy(enemies);
             canPlayAgain = true;
             console.log("My Enemies oonBoard value" + enemies[key].onBoard);
         }
-    }    
+    }
+       
 }
 
 // async function KillTheEnemy (enemies){
@@ -616,6 +663,11 @@ const SpawnRobo = function(whom){
  //play again 
 
 function WinnerIs(who){
+
+    if(selectedMode === 2 ){
+        UpdateWinner(2);
+    }
+
     PlayAudio('audio-winner');
     document.getElementById('bottomui').className = "bottomui uidisappear";
     var winnerui = document.getElementById('winner-ui-you');
@@ -631,8 +683,10 @@ function WinnerIs(who){
     var startui = document.getElementById('start-ui')
 
     winnerui.className = "winnerui uidisappear";
-    setTimeout(()=>{    startui.className = "middleui uiappear"
-}, 1000);
+//     setTimeout(()=>{    startui.className = "middleui uiappear"
+// }, 1000);
+ var origin = window.location.origin;
+ window.location.replace(origin);
  }
 
 function PlayAudio(whatAudio){
@@ -648,7 +702,70 @@ function StopAudio(whatAudio){
 }
 
 
+
+ function CreateARoom(){
+    document.getElementById("online-mode").className= "middleui uidisappear";
+    CreateGameRoom();
+    document.getElementById("create-room").className= "middleui uiappear";
+ }
+
+ function JoinARoom(position){
+    console.log('Pis is ' + position);
+    var username = GetUserName();
+
+    if(typeof username === 'undefined' || username === ""){
+        console.log("I CALLED TO DISPLAY LOGIN");
+        document.getElementById("online-name-panel").className= "middleui uiappear";
+    } else{
+        JoinRoom(position);
+    }
+
+ }
+function StartGame(){
+    // allPlayers = 
+    document.getElementById("create-room").className= "middleui uidisappear";
+    document.getElementById("bottomui").className += " uiappear";
+    document.getElementById('whoseturn').innerHTML = allPlayers[0];    
+
+}
+
+
+window.SetPlayers = function(players){
+    allPlayers = players;
+}
+
+window.UpdateWhoAmI = function(who){
+    whoAmI = who;
+}
+
+window.ShowDiceOG = function(value){
+    var vsl = value
+    DiceAnim(value).then(()=>{
+
+        console.log('the value of async is' + vsl);
+        console.log(vsl);
+        ShowDice(vsl);
+     });
+}
+
+
+
+
+
+
+
+
 WEBARSDK.SetStageReadyCallback(() =>{
     console.info('Stage is ready now!!!');
     document.getElementById('uiholder').style.display = "block";
  });
+
+
+
+// function showUi(){
+//     document.getElementById('uiholder').style.display = "block";
+
+// }
+
+
+// showUi();

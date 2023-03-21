@@ -27,7 +27,7 @@
 </head>
 <body>
 <div class="uipanel" id="uiholder" style="display: none;">
-    <div  id="start-ui" class="middleui ">
+    <div  id="start-ui" class="middleui nodisp">
             <img src="./textures/computer.png" alt="Play Against Computer" onclick="ChooseGameMode(0)">
             <img src="./textures/local.png" alt="Local Multiplayer" onclick="ChooseGameMode(1)">
             <img src="./textures/online.png" alt="Online Multiplayer" onclick="ChooseGameMode(2)">
@@ -37,6 +37,71 @@
             <!-- <img src="./textures/button.png" alt=""> -->
 
     </div>
+
+    
+
+    <div class="middleui nodisp" id="online-mode">
+        <h2>Play online with your friends</h2>
+        <img src="./textures/Create-Room.png" alt="Create A Room" onclick="CreateARoom()">
+        <!-- <img src="./textures/Join-Room.png" alt="Join A Room" onclick="JoinARoom()"> -->
+    </div>
+
+    <div class="middleui nodisp" id="create-room">
+        <h2>Invite your friends to join room</h2>
+        <div class="playerlist" id="roomplayers">
+            
+        </div>
+        <img src="./textures/Start-Game-Oline.png" alt="Start Game" id="start-og" class="nodisp" onclick="StartOG()">
+        <img src="./textures/invite.png" alt="Invite" id="inv-but" class="" onclick="InviteFriends()">
+    </div>
+
+    <div class="middleui" id="join-room">
+        <h2 id="roomname"></h2>
+        <div class="playerlist" id="joinroomplayers">
+            <div class="joinedplayer" id="p1h">
+                <img class="icons" src="./textures/red_icon.jpg" alt="player 1">
+                <p id="p1"></p>
+                <p id="p1r"></p>
+            </div>
+            <div class="joinedplayer" id="p2h">
+                <img class="icons" src="./textures/green_icon.jpg" alt="player 1">
+                <p id="p2"></p>
+                <p id="p2r"></p>
+            </div>
+            <div class="nodisp" id="p2hjoin">
+                <img class="icons" src="./textures/green_icon.jpg" alt="player 1">
+                <img id="joinroombut" width="100%" class="" src="./textures/Join-Room.png" alt="Join" onclick="JoinARoom(2)">            
+            </div>
+
+
+            <div class="joinedplayer" id="p3h">
+                <img class="icons" src="./textures/yellow_icon.jpg" alt="player 1">
+                <p id="p3"></p>
+                <p id="p3r"></p>
+            </div>
+            <div class="nodisp" id="p3hjoin">
+                <img class="icons" src="./textures/yellow_icon.jpg" alt="player 1">
+                <img id="joinroombut" width="100%" class="" src="./textures/Join-Room.png" alt="Join" onclick="JoinARoom(3)">            
+            </div>
+
+
+            <div class="joinedplayer" id="p4h">
+                <img class="icons" src="./textures/blue_icon.jpg" alt="player 1">
+                <p id="p4"></p>
+                <p id="p4r"></p>
+            </div>
+            <div class="nodisp" id="p4hjoin">
+                <img class="icons" src="./textures/blue_icon.jpg" alt="player 1">
+                <img id="joinroombut" width="100%" class="" src="./textures/Join-Room.png" alt="Join" onclick="JoinARoom(4)">            
+            </div>
+        </div>
+        
+        <h2 class="nodisp" id="notava">Not Available</h2>
+        
+    </div>
+
+
+
     <div  id="winner-ui-you" class="winnerui nodisp" >
         <h1 id="winnername" style="color: gold; margin-bottom: 0.1rem; text-align: center;">User Name</h1>
         <h2 style="text-align: center; color: white;">Winner Winner <br>Daal Chawal Dinner</h2>
@@ -46,9 +111,16 @@
         </div>
 
 
-</div>
 
+    </div>
 
+    <div class="middleui nodisp" id="online-name-panel">
+        <h2>What is your Name?</h2>
+        <input type="text" name="username" id="username">
+        <img src="./textures/Create-Room.png" alt="Create A Room" onclick="LoginUser()">
+    </div>
+
+    
     <div id="bottomui" class="bottomui">
             
         <img src="./textures/bottom_layer.png" alt="" width="100%" height="auto">
@@ -648,4 +720,5 @@
 <script>
 </script>
     <script src="./components/dare-ludo-ar.js"></script>
+    <script type="module" src="./components/gameFire.js"></script>
 </body>
