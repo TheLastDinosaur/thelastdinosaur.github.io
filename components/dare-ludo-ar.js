@@ -665,7 +665,7 @@ const SpawnRobo = function(whom){
 function WinnerIs(who){
 
     if(selectedMode === 2 ){
-        UpdateWinner(2);
+        UpdateWinner(who);
     }
 
     PlayAudio('audio-winner');
