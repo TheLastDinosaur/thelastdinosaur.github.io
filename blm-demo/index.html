@@ -1,0 +1,112 @@
+
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.1/dist/mindar-image-aframe.prod.js"></script>
+    <script>
+
+        AFRAME.registerComponent('vidhandler', {
+                 init: function () {
+                  this.toggle = false;
+                  document.querySelector("#mainvideo").pause(); //reference to the video
+                 },
+                 tick:function(){  
+                 if(document.querySelector("#target").object3D.visible == true){
+                   if(!this.toggle){
+                     this.toggle = true;
+                     document.querySelector("#mainvideo").play();
+                   }
+                 }else{
+                   this.toggle = false;
+                   document.querySelector("#mainvideo").pause();
+                 }
+                 }
+                 });
+        </script>
+
+        <style>
+ #play-button {
+            position: fixed;
+            top: calc(50%);
+            left: calc(50%);
+            /* width: 4em; */
+            /* height: 2em; */
+            z-index: 10;
+            transform: translate(-50%, -50%);
+    }
+button {
+  background-color: #f3ec2c; /* Green */
+  border: none;
+  color: #1d4b24;
+  padding: 1.6rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+}
+.intros{
+  background-color: #1d4b24;
+  width: 100%;
+  height: 100%;
+}
+
+        </style>
+  </head>
+  <body>
+    <div class="intros" id="introdiv">
+      <button id="play-button">View Chairman's Message in AR</button>
+
+    </div>
+    <a-scene mindar-image="imageTargetSrc: ./targets.mind; filterMinCF:0.1; autoStart: false" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+      <a-assets>
+        <a-asset-item id="logo" src="./objects/blm_logo.glb"></a-asset-item>
+        <video id="mainvideo" playsinline loop webkit-playsinline src="./videos/video.mp4"></video>
+        <video id="guru" src="./assets/guru_small.mp4"></video>
+
+      </a-assets>
+
+      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+      <a-entity light="intensity: 3; castShadow: true" position="0.01239 0.49574 1.1773"></a-entity>
+
+      <a-entity id="target" mindar-image-target="targetIndex: 0">
+        <!-- <a-entity light="color: #FFF; type: ambient" data-aframe-default-light="" aframe-injected="" visible="" ></a-entity> -->
+        <!-- <a-entity light="intensity: 1; castShadow: true" position="0 0 -2" ></a-entity> -->
+        <!-- <a-plane color="white" rotation="0 0 0" height="1.69"></a-plane> -->
+        <!-- <a-gltf-model rotation="90 0 0 " position="0 0 0.1" scale="0.05 0.05 0.05"  src="#logo" animation="property: scale; to: 0.15 1.5 0.15; dur: 1000; easing: easeInOutQuad; loop: true; dir: alternate"></a-gltf-model> -->
+        <a-video vidhandler src="#mainvideo" rotation="0 0 0" scale="0.35 0.35 0.35" position="0 0.05 0" width="1.69"></a-video>
+        <!-- <a-plane color="#1d4b24" material="shader: flat;" position="0 0.55 0" width="1.2" height="1" scale="0.35 0.35 0.35"></a-plane> -->
+
+        <a-gltf-model rotation="90 0 0 " position="0 0.55 0" scale="0.07 0.07 0.07"  src="#logo" animation="property: scale; to: 0.07 0.5 0.07; dur: 1000; easing: easeInOutQuad; loop: true; dir: alternate"></a-gltf-model>
+
+        <!-- <a-video src="#guru"></a-video> -->
+      </a-entity>
+    </a-scene>
+  </body>
+</html>
+
+
+<script>
+            
+    // window.addEventListener('click', function () {
+   document.getElementById('play-button').addEventListener("click", function(e){
+       // this.style.display = 'none';
+    const sceneEl = document.querySelector('a-scene');
+	const arSystem = sceneEl.systems["mindar-image-system"];
+    document.getElementById('introdiv').style.display = 'none';
+        arSystem.start();
+         var video = document.querySelector('#mainvideo');
+        //  alert("PRESSED");
+         if (video.paused == true) {
+           video.play();
+           } else {
+           video.pause();
+         }
+       }, false);
+      
+
+
+     </script>
