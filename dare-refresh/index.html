@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="canonical" href="https://www.dare2.digital" />
+
+    <!-- SEO -->
+    <meta name="description" content="Send augmented reality greeting cards, posters, postcards to your friends and family using DARE2.digital. These are beautifully crafted digital products.">
+    <meta name="keywords" content="Social Media AR, AR & VR Development, VR Games, AR Games, Augmented Reality, Virtual Reality, Jio Glass VR Games,Augmented Reality Greeting Cards, Augmented Reality Posters, Augmented Reality, Augmented Reality Lifestyle Brand, Augmented Reality Postcards, beautifully illustrated postcards greetingcards and posters">
+
+    <!-- Bootstrap css CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
+    <link rel="stylesheet" href="/dare-refresh/css/dare.css">
+
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.0.0/dist/aframe-extras.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-particle-system-component@1.1.4/dist/aframe-particle-system-component.min.js"></script>
+    <script src="./js/dare-components.js"></script>
+    <title>DARE DIGITAL - Open doors to Infinite Reality!</title>
+</head>
+<body>
+    <div class="info" style="position: fixed; z-index:1000">
+        <h1 id="scroll">HELLO</h1>
+    </div>
+    <div id="scene-holder">
+        <a-scene embedded>
+
+            <a-assets >
+                <a-asset-item id="floating-man" src="./web-3d/floating-man.gltf"></a-asset-item>
+            </a-assets>
+
+
+            <a-entity id="main-cam" camera look-controls position="0 1.6 0" ></a-entity>
+
+            <a-entity light="type: ambient; color: #0274ff"></a-entity>
+            <a-entity light="type: directional; color: #a229ff; intensity: 1" position="-2 0 -5"></a-entity>
+
+
+            <a-entity id="particless" position="0 2.25 -15" particle-system="preset: dust; particleCount: 1000; direction: -1"></a-entity>
+
+            <a-entity id="scn-1" position="3 -1 -5" animation="property: position; to: 2 1 -6; loop: true; dur: 5000; easing: easeInOutSine; dir: alternate">
+                <a-entity gltf-model="#floating-man" rotation="0 180 0"  animation-mixer></a-entity>
+            </a-entity>
+            <a-entity id="scn-2" position="2 1 -3" visible="false">
+                <a-video src="./videos/mammukka_or_mohanlal_AR_Filter_FilterMafia_By_Dare2Digital.mp4" rotation="0 0 0" scale="2 2 2" position="0 0 0" height="1.69"></a-video>
+            </a-entity>
+            <!-- <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
+            <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
+            <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
+            <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane> -->
+            <a-sky id="sky-1" model-opacity="1" 
+            src="./images/nebula_vibrant_nebula.jpeg" 
+            animation="property: rotation; to: 0 0 359; 
+            loop: true; dur: 500000; easing: linear;"
+            >
+           </a-sky>
+            
+        
+
+
+          </a-scene>
+    
+    </div>
+
+
+    
+    <div id="sidebar">
+        <div class="container p-0 p-sm-2">
+            <div id="logo"><img src="/images/DareDigital_Logo.svg" style="cursor:pointer" onclick="openNav()" alt="DARE Digital"></div>
+        <div id="burger">
+             <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+        </div>
+        </div>
+    </div>
+    <div id="mySidenav" class="sidenav pt-5">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="/" onclick="closeNav()">HOME</a>
+      <a href="/shop" onclick="closeNav()">SHOP</a>
+      <a href="/mycart" onclick="closeNav()">MY CART</a>
+      <!--<a href="#" onclick="closeNav()">PORTFOLIO</a>-->
+      <a href="#contact-us" onclick="closeNav()">CONTACT</a>
+    </div>
+    
+<div id="wrapper" class="content">
+<!-- banner -->
+<div class="container g-0">
+    <div class="row g-0  d-flex justify-content-center">
+      <div class="col-6 col-sm-12 dareRoundMe">
+
+        
+        <div class="headerText ">
+          <h1 class="c-lightblue">Open doors to <br>
+            Infinite Reality!
+          </h1>
+          <h3 class="c-pruple">
+            <span class="c-pruple">Dare you to experience <br> </span> an unparalleled <br> Augmented Reality Lifestyle!
+          </h3>
+          <p class="pt-sm-5 pt-2">
+            We make immersive and interactive Digital XR experiences and campaigns. <br>
+            Be it Instagram AR, and AR Ads, Snap AR, Web AR, Web VR, Jio Glass VR and 3D web experiences, <br>we dare do it. 
+          </p>
+          <p class="pt-sm-5 pt-2">
+            <a href="#shop" class="btn btn-primary btn-lg">Contact Us</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- //OUR PRODUCTS -->
+  <div class="container">
+    <div class="row g-0 mb-5">
+      <div class="col-12 text-center mb-sm-5 mb-0">
+          <h2>We make them go</h2>
+          <p class="bigb"> <span class="color-change-1">W</span><span class="color-change-2">O</span><span class="color-change-3">W</span><span class="color-change-4">!</span></p>
+          <h2>
+            Stun the people with our unique products <br> that come alive in Augmented Reality.
+          </h2>
+          <p class="pt-sm-5 pt-2">
+            <a href="#shop" class="btn btn-primary btn-lg">View Our Products</a>
+          </p>
+
+      </div>
+    </div>
+  </div>
+
+
+<!-- //OUR SERVICES -->
+<div class="container mb-5 pt-5 services">
+    <div class="row d-flex justify-content-center align-items-center">
+      <div class="col-6 col-sm-6">
+          <div class="pvideo-holder mb-5 mb-sm-0">
+            <video src="./videos/mammukka_or_mohanlal_AR_Filter_FilterMafia_By_Dare2Digital.mp4" autoplay muted loop playsinline>
+            </video>
+          </div>
+      </div>
+      <div class="col-12 col-sm-6">
+        <h3 class="c-blue mb-5">We help you with
+            Your Digital XR
+            Campaigns!
+        </h3>
+        <p class="mb-5">
+            Want to make your customers experience your interactive and memorable experience that engage with your audience and create user-generated content for your brand?</p>
+
+        <div class="instructions mb-5">
+            <h2>Our services include</h2>
+          <li> <a href="">INSTAGRAM AR
+            FILTERS & ADS  </a> </li>
+
+          <li>
+            <a href="">
+                FACEBOOK AR
+            FILTERS & ADS
+            </a>
+            </li>
+          
+          <li>
+            <a href="">
+                WEB AR
+                EXPERIENCES
+    
+            </a>
+            </li>
+          
+          <li>
+            <a href="">
+                SNAPCHAT AR
+                LENSES
+    
+            </a>            
+            </li>
+            <li>
+
+                <a href="">
+                    HYPER-CASUAL
+GAMES
+
+                </a>
+            </li>
+            <li>
+
+                <a href="">
+                    GENERATIVE
+AI EXPERIENCES
+
+                </a>
+            </li>
+            <li>
+                <a href="">
+
+VIRTUAL REALITY
+EXPERIENCES
+                </a>
+            </li>
+
+        </div>
+
+        <p>
+          <a href="#shop" class="btn btn-primary btn-lg">Talk to us</a>
+        </p>
+
+      </div>
+    </div>
+  </div>
+
+
+
+ <!-- //Social AR -->
+ <div id="trig" class="container vh-100  d-flex flex-column justify-content-center">
+    <div class="row g-0 mb-5 mt-5 vw-50 services">
+      
+      <div class="col-12">
+        <div class="row">
+            <div class="col-12 col-sm-12">
+                <h3 class="c-pruple">AR IN MARKETING CAMPAIGNS</h3>
+                <p>AR can be used on top of traditional Marketing campaigns like posters, hoardings, flyers by bringing them to life. <br>
+                    Make the user experience your offering virtually before visiting your store. <br>
+                    Share exclusive coupons based on how the user interacts with the experience.</p>
+            </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+ <!-- //Social AR -->
+ <div class="container vh-100 mt-5 d-flex flex-column justify-content-center ">
+    <div class="row g-0 mb-5 mt-5 vw-50 services">
+      
+      <div class="col-12">
+        <div class="row">
+          
+
+            <div class="col-12 col-sm-12">
+                <h3 class="c-pruple">AR FOR PROMOTING EVETNS OR SHOWS</h3>
+                <p>AR can be used to promote events/movies/tv-shows that are happening. <br>
+                    You can use AR to give users a sneak peek of the event to give them a taste of what the element/experience looks like or make them part of the show and generate user generated contents on social media for organic promotion </p>
+            </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+ <!-- //Social AR -->
+ <div class="container vh-100 mt-5  d-flex flex-column justify-content-center">
+    <div class="row g-0 mb-5 mt-5 vw-50 services">
+      
+      <div class="col-12">
+        <div class="row">
+            
+
+            <div class="col-12 col-sm-12">
+                <h3 class="c-pruple">AR FOR PRODUCT PROMOTION</h3>
+                <p>Bring your product to life using social AR and Web AR. With AR, users can see your product in 3D and in their own space and convenience, thus increasing sales probability. </p>
+            </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+<div class="container pt-5">
+    <div class="row g-0 my-5">
+      <div class="cool-12 text-center mb-5 ">
+          <h2>Made in</h2>
+          <p class="bigb"><span class="IN">IN</span>D<span class="IA">IA</span></p>
+          <h2>
+            For the Digital India Generation!
+          </h2>
+      </div>
+    </div>
+  </div>
+  
+  <footer class=" text-center text-lg-start behind">
+	<!-- Section: Social media -->
+
+	<!-- Section: Social media -->
+  
+	<!-- Section: Links  -->
+	<section class="p-4">
+	  <div id="contact-us" class="container-fluid text-center text-md-start mt-5">
+		<!-- Grid row -->
+		<div class="row mt-3">
+		  <!-- Grid column -->
+		  <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+			<!-- Content -->
+			<!-- <h6 class="text-uppercase fw-bold mb-4">
+			  <i class="fas fa-gem me-3"></i>Company name
+			</h6> -->
+			<img src="/images/DareDigital_Logo.svg" alt="DARE Digital, India" style="width:50% !important;">
+			<p class="mt-5">
+			  Mail us: <br> 306, Gulmohar, Valavil, East Vazhayur, Malappuram, Kerala 673633, India
+			</p>
+			<p>Talk to us : +91 8152010118</p>
+		  </div>
+		  <!-- Grid column -->
+  
+		  <!-- Grid column -->
+		  <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+			<!-- Links -->
+			<!-- <h6 class="text-uppercase fw-bold mb-4">
+			  Customer Care
+			</h6> -->
+			<p>
+			  <!-- <a href="https://beansongcoffee.in/pages/about-us" class="text-reset">About Us</a> -->
+			</p>
+			<p>
+			  <a href="/privacy-policy" class="text-reset">Privacy Policy</a>
+			</p>
+			<p>
+			  <a href="/terms-of-service" class="text-reset">Terms & Conditions</a>
+			</p>
+			<p>
+			  <a href="/refund-policy" class="text-reset">Products Return</a>
+			</p>
+			<p>
+				<a href="/shipping-policy" class="text-reset">Shipping Policy</a>
+			</p>
+		  </div>
+		  <!-- Grid column -->
+  
+		  <!-- Grid column -->
+
+		  <!-- Grid column -->
+  
+		  <!-- Grid column -->
+		  <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+			<!-- Links -->
+		  </div>
+		  <!-- Grid column -->
+		</div>
+		<!-- Grid row -->
+	  </div>
+	</section>
+	<!-- Section: Links  -->
+  
+	<!-- Copyright -->
+	<div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+	  © 2022 Copyright:
+	  <a class="text-reset fw-bold" href="https://dare2.digital/">DARE DIGITAL</a>
+	  <p style="font-size: 11px; margin-top: 1rem; color: #eee;">
+		DARE DIGITAL, a MSME having UDYAM registration no. UDYAM-KL-09-0005746 and registered under micro-services category before the District Industries Centre Malappuram and MSME-DI Thrissur Kerala	  </p>
+	</div>
+	<!-- Copyright -->
+  </footer>
+
+
+</div>
+</div>
+
+
+
+
+
+<!-- bootstrap js CDN -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
+<!-- nav script -->
+<script>
+	function openNav() {
+		document.getElementById("mySidenav").style.width = "100%";
+	}
+	
+	function closeNav() {
+		document.getElementById("mySidenav").style.width = "0";
+	}
+	
+		function whitner ()  {
+	document.getElementById("intro").style.backgroundColor= "#fff";
+		}
+	
+	</script>
+<!-- poly fill -->
+<script src="js/respond.min.js"></script>
+
+
+<script>
+    let trigger = false;
+    var oldScrollY = window.scrollY;
+    const theTrigger = document.getElementById('trig');
+    window.addEventListener("scroll", (e)=>{
+        document.getElementById("scroll").innerHTML = window.scrollY + "" + theTrigger.offsetTop - (window.innerHeight/2);
+        if(oldScrollY < window.scrollY){
+            // directionText.textContent = " Down";
+        } else {
+            if(window.scrollY > theTrigger.offsetTop - window.innerHeight/2){
+            if(!trigger){
+                // alert("YES");
+                trigger=true;
+                document.getElementById('sky-1').setAttribute("animation__2", {
+                    "property": "model-opacity", "dur": "1000", "from":"1", "to":"0"
+                });
+                setTimeout(function(){
+                    document.getElementById('particless').setAttribute("visible", false)
+                    // alert("animation over");
+                    document.getElementById('sky-1').setAttribute("animation__2", {
+                    "property": "model-opacity", "dur": "1000", "from":"0", "to":"1"
+                });
+
+                document.getElementById('scn-1').setAttribute("animation__2", {"property": "position", "to":"0 0 5", "dur":"1000"})
+                    document.getElementById('sky-1').setAttribute("color","lightgrey");
+                    document.getElementById('sky-1').setAttribute("src","");
+                    document.getElementById('sky-1').setAttribute("model-opacity","1");
+                    document.getElementById('scn-2').setAttribute("visible", true);
+                    document.getElementById('scn-2').setAttribute("animation", {"property": "position", "from":"0 0 5", "to":"2 1.5 -3", "dur":"500"});
+                    document.getElementById('scn-2').setAttribute("animation__2", {"property": "rotation", "from":"0 45 0", "to":"0 0 0", "dur":"1000", "easing":"easeInOutCubic"});
+
+                },1000)
+            }
+        }
+        }
+
+        oldScrollY = window.scrollY;
+
+
+ 
+      
+    })
+
+//     const isMobile = {
+//     Android: function() {
+//         return navigator.userAgent.match(/Android/i);
+//     },
+//     BlackBerry: function() {
+//         return navigator.userAgent.match(/BlackBerry/i);
+//     },
+//     iOS: function() {
+//         return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+//     },
+//     Opera: function() {
+//         return navigator.userAgent.match(/Opera Mini/i);
+//     },
+//     Windows: function() {
+//         return navigator.userAgent.match(/IEMobile/i) || navigator.userAgent.match(/WPDesktop/i);
+//     },
+//     any: function() {
+//         return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+//     }
+// };
+
+// if( isMobile.any() ) alert('iOS');
+
+if(screen.availHeight > screen.availWidth){
+    // alert("Please use Landscape!");
+    document.getElementById("main-cam").setAttribute("position", "1.5 0 0");
+}
+</script>
+
+
+
+</body>
+</html>
