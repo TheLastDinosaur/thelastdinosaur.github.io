@@ -1,6 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,400;0,700;1,100;1,400;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap');
 
+.loader-screen{
+  z-index: 999;
+  width: 100%;
+  height: 100vh;
+  background-color: #03050c;
+  position: fixed;
+  top:0;
+  left: 0;
+  opacity: 1;
+      pointer-events: none;
+
+}
+.fadeOutAnim{
+  animation: fadeOutMe 3s;
+  -webkit-animation: fadeOutMe 3s;
+  -moz-animation: fadeOutMe 3s;
+  -o-animation: fadeOutMe 3s;
+  -ms-animation: fadeOutMe 3s;
+  animation-delay: 5s;
+  animation-fill-mode: forwards;
+
+}
 
 :root {
     /* --StartBlack : #161718;
@@ -50,7 +72,7 @@
     position: relative;
     z-index: 99;
     background-color: rgba(0, 0, 0, 0.125);
-    /* pointer-events: none; */
+    pointer-events:fill;
 }
 .btn{
     pointer-events:all;
@@ -111,7 +133,7 @@
   }
   h1{
     /* font-weight: 900; */
-    font-size: 2.3rem;
+    font-size: 2rem;
     font-family: 'Alfa Slab One';
   }
   
@@ -129,7 +151,7 @@
   }
   
   h3{
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     
   }
   
@@ -164,7 +186,7 @@
   }
   .instructions li{
     font-size: 1.2rem;
-    line-height: 2rem;
+    line-height: 1.8rem;
     color: var(--DOrange);
     margin-left: 1.6rem;
     margin-bottom: 1.5rem;
@@ -245,10 +267,11 @@
   
   /* Navigation */
   .sidenav {
+    z-index: 1000;
     height: 100%;
     width: 0;
     position: fixed;
-    z-index: 1;
+    /* z-index: 1; */
     top: 0;
     left: 0;
     overflow-x: hidden;
@@ -256,7 +279,9 @@
     /* padding-top: 60px; */
     text-align:center;
     /* background-image: linear-gradient(to bottom, #161718, #1b1c1e, #202223, #262729, #2b2d2f, #2b2d2f, #2b2d2f, #2b2d2f, #262729, #202223, #1b1c1e, #161718); */
-    background-color: var(--DBlue);
+    /* background-color: var(--DMaroon); */
+    background-image: linear-gradient(to bottom, var(--DMaroon), var(--DBlue));
+
   
   }
   
@@ -266,7 +291,8 @@
     font-size: 25px;
     color: var(--DWhite);
     display: block;
-    transition: 0.3s
+    transition: 0.3s;
+    /* background-color: #747CD7; */
   
   }
   
@@ -291,6 +317,8 @@
   position: fixed;
   left:0;
   padding: 1rem;
+  z-index: 200;
+
   }
   #burger {
   position: fixed; 
@@ -380,7 +408,7 @@
   .headerText{
     position: absolute;
     top: 70%;
-    left: 12%;
+    left: 20%;
     transform: translate(-10%, -50%);
     width: 90%;
     
@@ -496,6 +524,19 @@
   
   
   @media only screen and (min-width:768px) and (max-width:1299px){
+
+    #logo {
+      height: 50%;
+      /* padding-left: 5rem; */
+      /* padding-top: 1rem; */
+      /* background-color: orchid; */
+    }
+    #logo img {
+  
+      /* height: 60%; */
+      width: 10%;
+    }
+  
     .dareRoundMe{
       border-radius: 1rem;
       /* box-shadow: 0 0 30px rgba(0, 0, 0, 0.36); */
@@ -508,7 +549,7 @@
     .headerText {
       position: absolute;
       top: 56%;
-      left: 12%;
+      left: 20%;
       transform: translate(-10%, -50%);
       width: 90%;
     }
@@ -625,7 +666,9 @@
         /* padding-top: 60px; */
         text-align:center;
         /* background-image: linear-gradient(to bottom, #161718, #1b1c1e, #202223, #262729, #2b2d2f, #2b2d2f, #2b2d2f, #2b2d2f, #262729, #202223, #1b1c1e, #161718); */
-        background-color: var(--DBlue);
+        /* background-color: var(--DBlue); */
+        /* background-image: linear-gradient(to bottom, var(--DMaroon), var(--DBlue)); */
+
   
     }
     
@@ -734,7 +777,7 @@
     .headerText{
       position: absolute;
       top: 60%;
-      left: 12%;
+      left: 20%;
       transform: translate(-10%, -50%);
       width: 75%;
       
@@ -1090,6 +1133,24 @@
   }
   
   
+  @keyframes fadeOutMe {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      visibility: visible;
+      opacity: 0;
+    }
+  }
+  @-webkit-keyframes fadeOutMe {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      visibility: visible;
+      opacity: 0;
+    }
+  }
   
   /* Chrome, Safari, Edge, Opera */
   input::-webkit-outer-spin-button,

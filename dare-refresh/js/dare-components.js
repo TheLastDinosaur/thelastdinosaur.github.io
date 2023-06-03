@@ -20,6 +20,15 @@ AFRAME.registerComponent('model-opacity', {
     }
   });
 
+  AFRAME.registerComponent('has-redered',{
+    init: function(){
+      console.log("Initialised");
+    },
+    tock: function(){
+      console.log("PLAYED");
+    }
+  })
+
 
 
 
