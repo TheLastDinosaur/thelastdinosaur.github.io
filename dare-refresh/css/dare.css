@@ -50,7 +50,7 @@
     position: relative;
     z-index: 99;
     background-color: rgba(0, 0, 0, 0.125);
-    pointer-events: none;
+    /* pointer-events: none; */
 }
 .btn{
     pointer-events:all;
@@ -111,7 +111,7 @@
   }
   h1{
     /* font-weight: 900; */
-    font-size: 2.5rem;
+    font-size: 2.3rem;
     font-family: 'Alfa Slab One';
   }
   
@@ -379,7 +379,7 @@
   } */
   .headerText{
     position: absolute;
-    top: 80%;
+    top: 70%;
     left: 12%;
     transform: translate(-10%, -50%);
     width: 90%;
