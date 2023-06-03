@@ -19,31 +19,78 @@
     <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.0.0/dist/aframe-extras.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-particle-system-component@1.1.4/dist/aframe-particle-system-component.min.js"></script>
     <script src="./js/dare-components.js"></script>
+    <script src="./js/aframe-curve-component.js"></script>
+    <script src="./js/smooth-scroll-path.js"></script>
+    <script src="./js/look-at.js"></script>
+    
+
     <title>DARE DIGITAL - Open doors to Infinite Reality!</title>
 </head>
 <body>
-    <div class="info" style="position: fixed; z-index:1000">
+    <!-- <div class="info" style="position: fixed; z-index:1000">
         <h1 id="scroll">HELLO</h1>
-    </div>
+    </div> -->
     <div id="scene-holder">
-        <a-scene embedded>
+        <a-scene embedded >
 
             <a-assets >
                 <a-asset-item id="floating-man" src="./web-3d/floating-man.gltf"></a-asset-item>
             </a-assets>
 
+            <!-- <a-curve id="track1" type="Custom">
+              <a-curve-point position="8 1 -2" type="Line"></a-curve-point>
+              <a-curve-point id="second-point" position="-4 -1 2" type="Line"></a-curve-point>
+              <a-curve-point id="third-point" position="-4 2 -10" type="CatmullRom" toggle-look-at></a-curve-point>
+              <a-curve-point position="30 5 0" ></a-curve-point>
+              <a-curve-point position="0 1 -1"></a-curve-point>
+              <a-curve-point position="-5 1 -2"></a-curve-point>
+              <a-curve-point position="-4 1 -4"></a-curve-point>
+              <a-curve-point position="0 0 -12"></a-curve-point>
+            </a-curve> -->
 
-            <a-entity id="main-cam" camera look-controls position="0 1.6 0" ></a-entity>
+            <a-curve id="track1" type="Custom">
+              <!-- <a-curve-point position="8 1 -2" type="Line"></a-curve-point>
+              <a-curve-point id="second-point" position="-4 -1 2" type="Line"></a-curve-point> -->
+              <a-curve-point id="third-point" position="-10 0 30" type="CatmullRom"></a-curve-point>
+              <a-curve-point id="third-point" position="20 0 -18" type="Line"></a-curve-point>
+              <a-curve-point id="third-point" position="-5 0 18" type="CatmullRom"></a-curve-point>
+              <a-curve-point position="-10 -2 -100" ></a-curve-point>
+              <a-curve-point position="-10 -2 -100" ></a-curve-point>
 
-            <a-entity light="type: ambient; color: #0274ff"></a-entity>
+              <!-- <a-curve-point position="0 1 -1"></a-curve-point> -->
+              <!-- <a-curve-point position="-5 1 -2"></a-curve-point> -->
+              <!-- <a-curve-point position="-4 1 -4"></a-curve-point> -->
+              <!-- <a-curve-point position="0 0 -12"></a-curve-point> -->
+            </a-curve>
+        
+            <a-draw-curve curveref="#track1" visible="false"></a-draw-curve>
+            <!-- <a-entity clone-along-curve="curve: #track1; spacing: 0.2; scale: 1 1 1; rotation: 0 0 0;" geometry="primitive:box; height:0.1; width:0.2; depth:0.1"></a-entity> -->
+   
+            <!-- <a-entity id="camera-rig"  position="0 0 0"> -->
+              <a-entity  id="main-cam"  alongpath-scroll="curve: #track1" look-at="#scn-1" 
+              camera="far: 1000; near: 0.001" position="0 0 0" ></a-entity>
+            <!-- </a-entity> -->
+
+            <a-entity light="type: ambient; color: #0274ff; intensity: 0.1"></a-entity>
             <a-entity light="type: directional; color: #a229ff; intensity: 1" position="-2 0 -5"></a-entity>
 
 
-            <a-entity id="particless" position="0 2.25 -15" particle-system="preset: dust; particleCount: 1000; direction: -1"></a-entity>
+            <a-entity id="particless" position="0 2.25 -15" particle-system="preset: dust; particleCount: 500; direction: -1"></a-entity>
 
-            <a-entity id="scn-1" position="3 -1 -5" animation="property: position; to: 2 1 -6; loop: true; dur: 5000; easing: easeInOutSine; dir: alternate">
-                <a-entity gltf-model="#floating-man" rotation="0 180 0"  animation-mixer></a-entity>
+            <a-sphere id="sphere" position="0 0 -90" scale="15 15 15" material="color:red; emissive:#A020F0; emissiveIntensity:1;"></a-sphere>
+            
+            <a-entity id="scn-1"  position="0 -1 -5">
+            <!-- animation="property: position; to: 2 1 -6; loop: true; dur: 5000; easing: easeInOutSine; dir: alternate" -->
+                <a-entity gltf-model="#floating-man" 
+                rotation="0 180 0"  
+                position="3 -4 0"
+                animation-mixer
+                scale="2 2 2"
+                animation="property: position; to: 3 1 0; loop: true; dur: 5000; easing: easeInOutSine; dir: alternate"></a-entity>
             </a-entity>
+
+            <a-sphere id="earth" position="-50 3 50" scale="15 15 15" material="color:blue; emissive:#02b9ff; emissiveIntensity:1"></a-sphere>
+
             <a-entity id="scn-2" position="2 1 -3" visible="false">
                 <a-video src="./videos/mammukka_or_mohanlal_AR_Filter_FilterMafia_By_Dare2Digital.mp4" rotation="0 0 0" scale="2 2 2" position="0 0 0" height="1.69"></a-video>
             </a-entity>
@@ -58,9 +105,7 @@
             >
            </a-sky>
             
-        
-
-
+          
           </a-scene>
     
     </div>
@@ -69,7 +114,7 @@
     
     <div id="sidebar">
         <div class="container p-0 p-sm-2">
-            <div id="logo"><img src="/images/DareDigital_Logo.svg" style="cursor:pointer" onclick="openNav()" alt="DARE Digital"></div>
+            <div id="logo"><img src="./images/" style="cursor:pointer" onclick="openNav()" alt="DARE Digital"></div>
         <div id="burger">
              <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
         </div>
@@ -86,21 +131,19 @@
     
 <div id="wrapper" class="content">
 <!-- banner -->
-<div class="container g-0">
-    <div class="row g-0  d-flex justify-content-center">
-      <div class="col-6 col-sm-12 dareRoundMe">
-
-        
+<div class=" g-0">
+    <div class="row g-0  d-flex justify-content-start">
+      <div class="col-9 col-sm-6 dareRoundMe">
         <div class="headerText ">
-          <h1 class="c-lightblue">Open doors to <br>
+          <h1 class="c-lightblue ">Open doors to <br> 
             Infinite Reality!
           </h1>
-          <h3 class="c-pruple">
+          <h3 class="c-lightblue">
             <span class="c-pruple">Dare you to experience <br> </span> an unparalleled <br> Augmented Reality Lifestyle!
           </h3>
-          <p class="pt-sm-5 pt-2">
-            We make immersive and interactive Digital XR experiences and campaigns. <br>
-            Be it Instagram AR, and AR Ads, Snap AR, Web AR, Web VR, Jio Glass VR and 3D web experiences, <br>we dare do it. 
+          <p class="pt-sm-2 pt-0">
+            We make immersive and interactive Digital XR experiences.<br>
+            Be it Instagram AR, Snap AR, Web AR, Web VR, Jio Glass MR and 3D experiences, <br>we dare do it. 
           </p>
           <p class="pt-sm-5 pt-2">
             <a href="#shop" class="btn btn-primary btn-lg">Contact Us</a>
@@ -114,10 +157,10 @@
   <div class="container">
     <div class="row g-0 mb-5">
       <div class="col-12 text-center mb-sm-5 mb-0">
-          <h2>We make them go</h2>
+          <h2>We make you go</h2>
           <p class="bigb"> <span class="color-change-1">W</span><span class="color-change-2">O</span><span class="color-change-3">W</span><span class="color-change-4">!</span></p>
           <h2>
-            Stun the people with our unique products <br> that come alive in Augmented Reality.
+            with our unique products <br> that come alive in Augmented Reality.
           </h2>
           <p class="pt-sm-5 pt-2">
             <a href="#shop" class="btn btn-primary btn-lg">View Our Products</a>
@@ -129,24 +172,23 @@
 
 
 <!-- //OUR SERVICES -->
-<div class="container mb-5 pt-5 services">
-    <div class="row d-flex justify-content-center align-items-center">
-      <div class="col-6 col-sm-6">
+<div class="container mb-5 pt-5 ">
+    <div class="row d-flex justify-content-start align-items-center">
+      <!-- <div class="col-6 col-sm-6">
           <div class="pvideo-holder mb-5 mb-sm-0">
             <video src="./videos/mammukka_or_mohanlal_AR_Filter_FilterMafia_By_Dare2Digital.mp4" autoplay muted loop playsinline>
             </video>
           </div>
-      </div>
-      <div class="col-12 col-sm-6">
-        <h3 class="c-blue mb-5">We help you with
-            Your Digital XR
-            Campaigns!
+      </div> -->
+      <div class="col-12 col-sm-6 services">
+        <h2 class="mb-5">We help you build
         </h3>
-        <p class="mb-5">
-            Want to make your customers experience your interactive and memorable experience that engage with your audience and create user-generated content for your brand?</p>
+        <!-- <p class="mb-5">
+            Want to make your customers experience your interactive and memorable experience that engage with your audience and create user-generated content for your brand?
+          </p> -->
 
         <div class="instructions mb-5">
-            <h2>Our services include</h2>
+            <!-- <h2>Our services include</h2> -->
           <li> <a href="">INSTAGRAM AR
             FILTERS & ADS  </a> </li>
 
@@ -183,7 +225,6 @@ GAMES
             <li>
 
                 <a href="">
-                    GENERATIVE
 AI EXPERIENCES
 
                 </a>
@@ -267,6 +308,62 @@ EXPERIENCES
   </div>
 
 
+<!-- ABOUT US -->
+<div class="container g-0">
+  <div class="row g-0  d-flex justify-content-start">
+    <div class="col-12 col-sm-6 dareRoundMe">
+
+      
+      <div class="headerText ">
+        <h1 class="c-lightblue">Why us?
+        </h1>
+        
+        <p class="pt-sm-5 pt-2">
+          There are stories everywhere. They are influenced by the lives of people and the fascinating 
+          remembrance where they cut through with brands. DARE Digital help magnifying those stories, 
+          irrespective of however it exits, the reason because these tales speak louder and that 
+          makes a difference to your brand. They may be in large towns, a growing city, a village. 
+        </p>
+        <p>
+          The patpaths are connected and a very few can guide you the route as we can. 
+        </p>
+        <p class="c-pruple">We dare to do it!        
+        </p>
+        <p class="pt-sm-5 pt-2">
+          <a href="#shop" class="btn btn-primary btn-lg">Contact Us</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- The team -->
+<div class="container mb-5 pt-5 ">
+  <div class="row d-flex justify-content-start align-items-top whoisit">
+    <h1 class="mb-5">Heads who dare
+    </h1>
+    <div class="col-10 col-sm-5 ">
+      <img src="./images/Syamlal_Pullamballi_2.png" alt="">
+      <h2 class="mt-5 c-lightblue" style="font-weight: bold;">Syamlal Pullamballi</h2>
+      <h3>Founder & Creative Technologist</h3>
+      <p>A small intro about the person</p>
+    </div>
+    <div class="col-12 col-sm-2"></div>
+    <div class="col-10 col-sm-5 ">
+      <img src="./images/Syamlal_Pullamballi_2.png" alt="">
+      <h2 class="mt-5 c-lightblue" style="font-weight: bold;">Sriram Padmanabhan</h2>
+      <h3>Co-Founder & ???</h3>
+      <p>A small intro about the person</p>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- //FOOTER -->
 
 <div class="container pt-5">
     <div class="row g-0 my-5">
@@ -387,35 +484,57 @@ EXPERIENCES
     let trigger = false;
     var oldScrollY = window.scrollY;
     const theTrigger = document.getElementById('trig');
+//     document.addEventListener('DOMContentLoaded', function() {
+//       // document.getElementById("track1").dispatchEvent(new CustomEvent('scroll'));
+//       window.scrollBy(0, 10); 
+// }, false);
+
+if (document.readyState == 'complete') {
+  window.scrollBy(0, 10); 
+} else {
+    document.onreadystatechange = function () {
+        if (document.readyState === "complete") {
+          window.scrollBy(0, 10); 
+        }
+    }
+}
     window.addEventListener("scroll", (e)=>{
-        document.getElementById("scroll").innerHTML = window.scrollY + "" + theTrigger.offsetTop - (window.innerHeight/2);
+        // document.getElementById("scroll").innerHTML = window.scrollY + "" + theTrigger.offsetTop;
         if(oldScrollY < window.scrollY){
+          if(window.scrollY > theTrigger.offsetTop + window.innerHeight/4){
+              document.getElementById("main-cam").removeAttribute("look-at");
+              document.getElementById("main-cam").setAttribute("look-at", "#sphere");
+          }
             // directionText.textContent = " Down";
         } else {
-            if(window.scrollY > theTrigger.offsetTop - window.innerHeight/2){
-            if(!trigger){
-                // alert("YES");
-                trigger=true;
-                document.getElementById('sky-1').setAttribute("animation__2", {
-                    "property": "model-opacity", "dur": "1000", "from":"1", "to":"0"
-                });
-                setTimeout(function(){
-                    document.getElementById('particless').setAttribute("visible", false)
-                    // alert("animation over");
-                    document.getElementById('sky-1').setAttribute("animation__2", {
-                    "property": "model-opacity", "dur": "1000", "from":"0", "to":"1"
-                });
+            if(window.scrollY < theTrigger.offsetTop){
+              // alert("HELLO");
+              document.getElementById("main-cam").removeAttribute("look-at");
+              document.getElementById("main-cam").setAttribute("look-at", "#scn-1");
+              // alert("SPHERE");
+        //     if(!trigger){
+        //         // alert("YES");
+        //         trigger=true;
+        //         document.getElementById('sky-1').setAttribute("animation__2", {
+        //             "property": "model-opacity", "dur": "1000", "from":"1", "to":"0"
+        //         });
+        //         setTimeout(function(){
+        //             document.getElementById('particless').setAttribute("visible", false)
+        //             // alert("animation over");
+        //             document.getElementById('sky-1').setAttribute("animation__2", {
+        //             "property": "model-opacity", "dur": "1000", "from":"0", "to":"1"
+        //         });
 
-                document.getElementById('scn-1').setAttribute("animation__2", {"property": "position", "to":"0 0 5", "dur":"1000"})
-                    document.getElementById('sky-1').setAttribute("color","lightgrey");
-                    document.getElementById('sky-1').setAttribute("src","");
-                    document.getElementById('sky-1').setAttribute("model-opacity","1");
-                    document.getElementById('scn-2').setAttribute("visible", true);
-                    document.getElementById('scn-2').setAttribute("animation", {"property": "position", "from":"0 0 5", "to":"2 1.5 -3", "dur":"500"});
-                    document.getElementById('scn-2').setAttribute("animation__2", {"property": "rotation", "from":"0 45 0", "to":"0 0 0", "dur":"1000", "easing":"easeInOutCubic"});
+        //         document.getElementById('scn-1').setAttribute("animation__2", {"property": "position", "to":"0 0 5", "dur":"1000"})
+        //             document.getElementById('sky-1').setAttribute("color","lightgrey");
+        //             document.getElementById('sky-1').setAttribute("src","");
+        //             document.getElementById('sky-1').setAttribute("model-opacity","1");
+        //             document.getElementById('scn-2').setAttribute("visible", true);
+        //             document.getElementById('scn-2').setAttribute("animation", {"property": "position", "from":"0 0 5", "to":"2 1.5 -3", "dur":"500"});
+        //             document.getElementById('scn-2').setAttribute("animation__2", {"property": "rotation", "from":"0 45 0", "to":"0 0 0", "dur":"1000", "easing":"easeInOutCubic"});
 
-                },1000)
-            }
+        //         },1000)
+        //     }
         }
         }
 
@@ -451,7 +570,7 @@ EXPERIENCES
 
 if(screen.availHeight > screen.availWidth){
     // alert("Please use Landscape!");
-    document.getElementById("main-cam").setAttribute("position", "1.5 0 0");
+    // document.getElementById("main-cam").setAttribute("position", "1.5 0 0");
 }
 </script>
 
