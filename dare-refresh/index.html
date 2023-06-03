@@ -43,8 +43,8 @@
                 <a-asset-item id="floating-man" src="./web-3d/floating-man.gltf"></a-asset-item>
                 <img id="earth-diffuse" src="./web-3d/earth-textures/earthmap1k.jpg">
                 <img id="earth-bump" src="./web-3d/earth-textures/earthbump.jpg">
-                <img id="earth-specular" src="./web-3d/earth-textures/specularmap.jpg">
-                <img id="earth-clouds" src="./web-3d/earth-textures/earthCloud.png">
+                <img id="glow" src="./web-3d/glowing-portal/glow.png">
+                
             </a-assets>
 
             <!-- <a-curve id="track1" type="Custom">
@@ -81,14 +81,21 @@
               camera="far: 1000; near: 0.001" position="0 0 0" ></a-entity>
             <!-- </a-entity> -->
 
-            <a-entity light="type: ambient; color: #0274ff; intensity: 0.1"></a-entity>
-            <a-entity light="type: directional; color: #a229ff; intensity: 1" position="-2 0 -5"></a-entity>
+            <!-- <a-entity light="type: ambient; color: #0274ff; intensity: 0.1"></a-entity> -->
+            <a-entity light="type: directional; color: #a229ff; intensity: 1" position="-10 0 -5"></a-entity>
+            <a-entity light="type: directional; color: #a229ff; intensity: 0.5" position="10 0 -5"></a-entity>
 
 
             <a-entity id="particless" position="0 2.25 -15" particle-system="preset: dust; particleCount: 500; direction: -1"></a-entity>
 
-            <a-sphere id="sphere" position="0 0 -90" scale="20 20 20" material="color:red; emissive:#A020F0; emissiveIntensity:1;"></a-sphere>
-            
+            <a-sphere id="sphere" position="0 0 -90" scale="20 20 20" 
+            material="color:red; blending: normal; emissive:#A020F0; emissiveIntensity:1;">
+            <a-image width="4" height="4" src="#glow" look-at="#main-cam" color="#A020F0" material="transparent: true; blending: normal; opacity: 1.0; alphaTest: 0.01;"></a-image>
+            <a-image width="4" height="4" src="#glow" look-at="#main-cam" color="#A020F0" material="transparent: true; blending: normal; opacity: 1.0; alphaTest: 0.01;"></a-image>
+          </a-sphere>
+            <!-- <a-sphere id="" position="0 0 -90" scale="19 19 19" 
+            material="color:red; emissive:#A020F0; emissiveIntensity:1; wireframe: false"></a-sphere> -->
+
             <a-entity id="scn-1"  position="0 -1 -5">
             <!-- animation="property: position; to: 2 1 -6; loop: true; dur: 5000; easing: easeInOutSine; dir: alternate" -->
                 <a-entity gltf-model="#floating-man" 
@@ -99,9 +106,11 @@
                 scale="2 2 2"
                 animation="property: position; to: 3 1 0; loop: true; dur: 5000; easing: easeInOutSine; dir: alternate"></a-entity>
             </a-entity>
+
             <a-entity light="type: point; intensity: 1.5; distance: 30; decay: 0.1"
-            position="-20 6 50"></a-entity>
-            <a-sphere id="earth" position="-50 3 50" scale="15 15 15" 
+            position="-20 6 40"></a-entity>
+
+            <a-sphere id="earth" position="-50 3 30" scale="15 15 15" 
             material="src:#earth-diffuse; displacementMap:#earth-bump; displacementScale: 1"
             animation="property: rotation; to: 0 359 0; dur: 10000; loop: true; easing: linear;"></a-sphere>
 
@@ -149,18 +158,18 @@
     <div class="row g-0  d-flex justify-content-start">
       <div class="col-9 col-sm-6 dareRoundMe">
         <div class="headerText ">
-          <h1 class="c-lightblue ">Open doors to <br> 
+          <h1 class=" ">Open doors to <br> 
             Infinite Reality!
           </h1>
           <h3 class="c-lightblue">
-            <span class="c-pruple">Dare you to experience <br> </span> an unparalleled <br> Augmented Reality Lifestyle!
+            <span class="c-lightblue">Dare you to experience <br> </span> an unparalleled <br> Augmented Reality Lifestyle!
           </h3>
           <p class="pt-sm-2 pt-0">
             We make immersive and interactive Digital XR experiences.<br>
             Be it Instagram AR, Snap AR, Web AR, Web VR, Jio Glass MR and 3D experiences, <br>we dare do it. 
           </p>
           <p class="pt-sm-5 pt-2">
-            <a href="#shop" class="btn btn-primary btn-lg">Contact Us</a>
+            <a href="#shop" class="btn btn-secondary btn-lg">Contact Us</a>
           </p>
         </div>
       </div>
@@ -168,7 +177,7 @@
   </div>
 
   <!-- //OUR PRODUCTS -->
-  <div class="container">
+  <div class="container vh-100 d-flex align-items-center justify-content-center">
     <div class="row g-0 mb-5">
       <div class="col-12 text-center mb-sm-5 mb-0">
           <h2>We make you go</h2>
@@ -177,7 +186,7 @@
             with our unique products <br> that come alive in Augmented Reality.
           </h2>
           <p class="pt-sm-5 pt-2">
-            <a href="#shop" class="btn btn-primary btn-lg">View Our Products</a>
+            <a href="#shop" class="btn btn-secondary btn-lg">View Our Products</a>
           </p>
 
       </div>
@@ -194,9 +203,9 @@
             </video>
           </div>
       </div> -->
-      <div class="col-12 col-sm-6 services">
-        <h2 class="mb-5">We help you build
-        </h3>
+      <div class="col-12 col-sm-6">
+        <h1 class="mb-5">We help you build
+        </h1>
         <!-- <p class="mb-5">
             Want to make your customers experience your interactive and memorable experience that engage with your audience and create user-generated content for your brand?
           </p> -->
@@ -254,7 +263,7 @@ EXPERIENCES
         </div>
 
         <p>
-          <a href="#shop" class="btn btn-primary btn-lg">Talk to us</a>
+          <a href="#shop" class="btn btn-secondary btn-lg">Talk to us</a>
         </p>
 
       </div>
@@ -270,10 +279,13 @@ EXPERIENCES
       <div class="col-12">
         <div class="row">
             <div class="col-12 col-sm-12">
-                <h3 class="c-pruple">AR IN MARKETING CAMPAIGNS</h3>
-                <p>AR can be used on top of traditional Marketing campaigns like posters, hoardings, flyers by bringing them to life. <br>
+                <h3 class="c-lightblue">AR IN MARKETING CAMPAIGNS</h3>
+                <p class="mb-5">AR can be used on top of traditional Marketing campaigns like posters, hoardings, flyers by bringing them to life. <br>
                     Make the user experience your offering virtually before visiting your store. <br>
-                    Share exclusive coupons based on how the user interacts with the experience.</p>
+                    Share exclusive coupons when the user interacts with your in-store or ooh experience.</p>
+                    <p>
+                      <a href="#shop" class="btn btn-secondary btn-lg">Know More</a>
+                    </p>
             </div>
 
 
@@ -291,9 +303,12 @@ EXPERIENCES
           
 
             <div class="col-12 col-sm-12">
-                <h3 class="c-pruple">AR FOR PROMOTING EVETNS OR SHOWS</h3>
-                <p>AR can be used to promote events/movies/tv-shows that are happening. <br>
+                <h3 class="c-lightblue">AR FOR PROMOTING EVETNS OR SHOWS</h3>
+                <p class="mb-5">AR can be used to promote events/movies/tv-shows that are happening. <br>
                     You can use AR to give users a sneak peek of the event to give them a taste of what the element/experience looks like or make them part of the show and generate user generated contents on social media for organic promotion </p>
+                <p>
+                    <a href="#shop" class="btn btn-secondary btn-lg">Know More</a>
+                </p>                    
             </div>
 
 
@@ -311,8 +326,11 @@ EXPERIENCES
             
 
             <div class="col-12 col-sm-12">
-                <h3 class="c-pruple">AR FOR PRODUCT PROMOTION</h3>
-                <p>Bring your product to life using social AR and Web AR. With AR, users can see your product in 3D and in their own space and convenience, thus increasing sales probability. </p>
+                <h3 class="c-lightblue">AR FOR PRODUCT PROMOTION</h3>
+                <p class="mb-5">Bring your product to life using social AR and Web AR. With AR, users can see your product in 3D and in their own space and convenience, thus increasing sales probability. </p>
+                <p>
+                  <a href="#shop" class="btn btn-secondary btn-lg">Know More</a>
+                </p>
             </div>
 
 
@@ -325,11 +343,10 @@ EXPERIENCES
 <!-- ABOUT US -->
 <div class="container g-0">
   <div class="row g-0  d-flex justify-content-start">
-    <div class="col-12 col-sm-6 dareRoundMe">
+    <div class="col-12 col-sm-6 services">
 
       
-      <div class="headerText ">
-        <h1 class="c-lightblue">Why us?
+        <h1 class="">Why us?
         </h1>
         
         <p class="pt-sm-5 pt-2">
@@ -341,12 +358,11 @@ EXPERIENCES
         <p>
           The patpaths are connected and a very few can guide you the route as we can. 
         </p>
-        <p class="c-pruple">We dare to do it!        
+        <p class="c-lightblue">We dare to do it!        
         </p>
         <p class="pt-sm-5 pt-2">
-          <a href="#shop" class="btn btn-primary btn-lg">Contact Us</a>
+          <a href="#shop" class="btn btn-secondary btn-lg">Contact Us</a>
         </p>
-      </div>
     </div>
   </div>
 </div>
@@ -385,7 +401,7 @@ EXPERIENCES
           <h2>Made in</h2>
           <p class="bigb"><span class="IN">IN</span>D<span class="IA">IA</span></p>
           <h2>
-            For the Digital India Generation!
+            For the universe!
           </h2>
       </div>
     </div>
