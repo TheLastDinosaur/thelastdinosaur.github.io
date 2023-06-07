@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,400;0,700;1,100;1,400;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap');
 
+.modal{
+  z-index: 400 !important;
+}
 .loader-screen{
   z-index: 999;
   width: 100%;
@@ -1120,18 +1123,18 @@
   }
   @keyframes rotating {
     from {
-      -ms-transform: rotate(-20deg);
-      -moz-transform: rotate(-20deg);
-      -webkit-transform: rotate(-20deg);
-      -o-transform: rotate(-20deg);
-      transform: rotate(-20deg);
+      -ms-transform: rotate(-05deg);
+      -moz-transform: rotate(-05deg);
+      -webkit-transform: rotate(-05deg);
+      -o-transform: rotate(-05deg);
+      transform: rotate(-05deg);
     }
     to {
-      -ms-transform: rotate(20deg);
-      -moz-transform: rotate(20deg);
-      -webkit-transform: rotate(20deg);
-      -o-transform: rotate(20deg);
-      transform: rotate(20deg);
+      -ms-transform: rotate(05deg);
+      -moz-transform: rotate(05deg);
+      -webkit-transform: rotate(05deg);
+      -o-transform: rotate(05deg);
+      transform: rotate(05deg);
     }
   }
   
