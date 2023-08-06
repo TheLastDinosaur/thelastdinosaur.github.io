@@ -119,7 +119,8 @@
              ></a-sky>
 
       <!-- Image links. -->
-      <a-entity id="links"  position="0 -0.5 -1" rotation="90 0 0" scale="0.3 0.3 0.3">
+      <a-entity id="links"  position="0 0.5 -5" rotation="90 0 0" scale="0.3 0.3 0.3">
+        <a-text value="Next" position="-0.5 0 0" ></a-text>
         <a-entity class="link"
         position = "0.5 0 0"
         rotation="0 0 0"
@@ -130,7 +131,7 @@
         animation__scaleup="property: scale; to: 1.2 1.2 1.2 dur: 100; easing: easeInOutSine; startEvents: upscale"
         animation__scaledown="property: scale; to: 1 1 1 dur: 100; easing: easeInOutSine; startEvents: downscale"
         >
-        <a-text value="Next" position="-0.5 -0.6 0"></a-text>
+        
         </a-entity>
 
         <a-entity class="link"
@@ -150,7 +151,7 @@
       </a-entity>
 
       <!-- Camera + cursor. -->
-      <a-entity camera look-controls>
+      <a-entity camera look-controls >
         <a-cursor
           id="cursor"
           color= "blue"
