@@ -1,36 +1,264 @@
+
+<!DOCTYPE html>
 <html>
   <head>
-    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <meta charset="utf-8">
+    <title>360&deg; Image Gallery</title>
+    <meta name="description" content="360&deg; Image Gallery - A-Frame">
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <!-- <script src="https://unpkg.com/aframe-event-set-component@5/dist/aframe-event-set-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-layout-component@5.3.0/dist/aframe-layout-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-template-component@3.2.1/dist/aframe-template-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-proxy-event-component@2.1.0/dist/aframe-proxy-event-component.min.js"></script> -->
+    
+    <script>
+        AFRAME.registerComponent('nexty', {
+            schema: {
+                mymap: { type: 'string' }
+            },
+        
+            init: function () {
+                var data = this.data;
+                var el = this.el;
+                var sky = document.getElementById("image-360");
+                var controller = document.getElementById("controller");
+                // Update geometry props
+                el.addEventListener('click', function (event) {
+                    sky.emit('fade');
+                    console.log(sky)
+                    sky.setAttribute("src", data.mymap);
+                    controller.emit("next")
+
+                });
+                el.addEventListener("mouseenter", function(event){
+                    el.emit("upscale")
+                    // alert("ENTER");
+                });
+                el.addEventListener("mouseleave", function(event){
+                    el.emit("downscale")
+                    // alert("ENTER");
+                })
+
+            },
+        
+        });
+
+        AFRAME.registerComponent('prevy', {
+            schema: {
+                mymap: { type: 'string' }
+            },
+        
+            init: function () {
+                var data = this.data;
+                var el = this.el;
+                var sky = document.getElementById("image-360");
+                var controller = document.getElementById("controller");
+                // Update geometry props
+                el.addEventListener('click', function (event) {
+                    sky.emit('fade');
+                    sky.setAttribute("src", data.mymap);
+                    controller.emit("prev")
+
+                });
+                el.addEventListener("mouseenter", function(event){
+                    el.emit("upscale")
+                    // alert("ENTER");
+                });
+                el.addEventListener("mouseleave", function(event){
+                    el.emit("downscale")
+                    // alert("ENTER");
+                })
+
+            },
+        
+        })
+    </script>
+
+    <!-- Image link template to be reused. -->
+    <script id="link" type="text/html">
+    
+        
+        
+
+      <a-entity class="link"
+        geometry="primitive: plane; height: 1; width: 1"
+        material="shader: flat; transparent:true; src: ${thumb}"
+        event-set__mouseenter="scale: 1.2 1.2 1;"
+        event-set__mouseleave="scale: 1 1 1"
+        event-set__click="_target: #image-360; _delay: 300; material.src: ${src};"
+        proxy-event="event: click; to: #image-360; as: fade"
+        proxy-event-swtich="event: click; to: #controller; as: controllers"
+        sound="on: click; src: #click-sound"></a-entity>
+    </script>
   </head>
   <body>
     <a-scene>
-        <a-assets>
-          <audio id="click-sound" src="https://cdn.aframe.io/360-image-gallery-boilerplate/audio/click.ogg"></audio>
-      
-          <!-- Images. -->
-          <img id="city" src="./images/entrance.jpg">
-          <img id="city-thumb" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-city.jpg">
-          <img id="cubes" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/cubes.jpg">
-          <img id="cubes-thumb" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg">
-          <img id="sechelt" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/sechelt.jpg">
-          <img id="sechelt-thumb" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-sechelt.jpg">
-        </a-assets>
-      
-        <!-- 360-degree image. -->
-        <a-sky id="image-360" radius="10" src="#city"></a-sky>
-      
-        <!-- Link template we will build. -->
-        <a-entity class="link"></a-entity>
-      
-        <!-- Camera + Cursor. -->
-        <a-camera>
-          <a-cursor
-            id="cursor"
-            animation__click="property: scale; from: 0.1 0.1 0.1; to: 1 1 1; easing: easeInCubic; dur: 150; startEvents: click"
-            animation__clickreset="property: scale; to: 0.1 0.1 0.1; dur: 1; startEvents: animationcomplete__click"
-            animation__fusing="property: scale; from: 1 1 1; to: 0.1 0.1 0.1; easing: easeInCubic; dur: 150; startEvents: fusing"></a-cursor>
-        </a-camera>
-      </a-scene>
-      
+      <a-assets>
+        <img id="entrance" crossorigin="anonymous" src="./images/1.png">
+        <img id="walkingdown-right" crossorigin="anonymous" src="./images/2.jpg">
+        <img id="amma-photo" crossorigin="anonymous" src="./images/33.jpg">
+        <img id="pen-shadow" crossorigin="anonymous" src="./images/9.jpg">
+        <img id="anamorphic" crossorigin="anonymous" src="./images/4.jpg">
+        <img id="bookwall" crossorigin="anonymous" src="./images/5.jpg">
+        <img id="blockart" crossorigin="anonymous" src="./images/6.jpg">
+        <img id="pixel-art" crossorigin="anonymous" src="./images/3.jpg">
+        <img id="lastwall" crossorigin="anonymous" src="./images/7.jpg">
+
+
+
+        
+        <img id="waypoint" crossorigin="anonymous" src="./images/arrow_mark.png">
+
+        <audio id="click-sound" crossorigin="anonymous" src="https://cdn.aframe.io/360-image-gallery-boilerplate/audio/click.ogg"></audio>
+      </a-assets>
+
+      <!-- 360-degree image. -->
+      <a-sky id="image-360" rotation="0 -90 0" radius="10" src="#entrance"
+             animation__fade="property: components.material.material.color; type: color; from: #FFF; to: #000; dur: 300; startEvents: fade"
+             animation__fadeback="property: components.material.material.color; type: color; from: #000; to: #FFF; dur: 300; startEvents: animationcomplete__fade"
+             ></a-sky>
+
+      <!-- Image links. -->
+      <a-entity id="links"  position="0 -1 -2" rotation="0 0 0">
+            <a-entity class="link"
+            position = "3 0 0"
+            id="next"
+            geometry="primitive: plane; height: 1; width: 1"
+            material="shader: flat; transparent:true; src: #waypoint; side:double"
+            nexty="mymap: #walkingdown-right"
+            animation__scaleup="property: scale; to: 1.2 1.2 1.2 dur: 100; easing: easeInOutSine; startEvents: upscale"
+            animation__scaledown="property: scale; to: 1 1 1 dur: 100; easing: easeInOutSine; startEvents: downscale"
+            >
+            <a-text value="Next" position="-0.5 -0.6 0"></a-text>
+            </a-entity>
+
+            <a-entity class="link"
+            id="prev"
+            rotation="0 0 180"
+            position = "-3 0 0"
+            geometry="primitive: plane; height: 1; width: 1"
+            material="shader: flat; transparent:true; src: #waypoint; side:double"
+            prevy="mymap: #lastwall"
+            animation__scaleup="property: scale; to: 1.2 1.2 1.2 dur: 100; easing: easeInOutSine; startEvents: upscale"
+            animation__scaledown="property: scale; to: 1 1 1 dur: 100; easing: easeInOutSine; startEvents: downscale"
+            >
+            <a-text value="Previous" position="0.5 0.6 0" rotation="0 0 180"
+            ></a-text>
+        </a-entity>
+
+            <!-- <a-entity template="src: #link" data-src="#amma-photo" data-thumb="#waypoint" ></a-entity> -->
+      </a-entity>
+
+      <!-- Camera + cursor. -->
+      <a-entity camera look-controls>
+        <a-cursor
+          id="cursor"
+          animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
+          animation__fusing="property: fusing; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
+          event-set__mouseenter="_event: mouseenter; color: springgreen"
+          event-set__mouseleave="_event: mouseleave; color: black"
+          raycaster="objects: .link"></a-cursor>
+      </a-entity>
+      <a-entity id="controller"></a-entity>
+    </a-scene>
+    <script>
+        var screneController = 0;
+        var maxScreenController = 9;
+        var trigger = document.getElementById('controller');
+        var nextElement = document.getElementById("next");
+        var prevElement = document.getElementById('prev');
+        var mySky = document.getElementById("image-360");
+        trigger.addEventListener("next", setupNext);
+        trigger.addEventListener("prev", setupPrev);
+
+        
+
+
+        function setupNext() {
+            if(screneController < maxScreenController){
+                screneController+=1;
+            } 
+            if(screneController == maxScreenController){
+                screneController = 0;
+            }
+            if(screneController < 0){
+                screneController = maxScreenController
+            }
+            
+            SwitchData()
+
+            console.log(screneController)
+        }
+
+        function setupPrev(params) {
+
+            if(screneController <= maxScreenController){
+                screneController--;
+            } 
+            
+            if(screneController < 0){
+                screneController = maxScreenController - 1
+            }
+
+            SwitchData()
+        
+            console.log(screneController)
+        }
+
+        function SwitchData() {
+            switch (screneController) {
+                case 0:
+                    //at the entrance
+                    nextElement.setAttribute("nexty", {"mymap":  "#walkingdown-right"});
+                    prevElement.setAttribute("prevy", {"mymap":  "#lastwall"});
+                    break;
+                case 1:
+                    //going down
+                    nextElement.setAttribute("nexty", {"mymap":  "#amma-photo"});
+                    prevElement.setAttribute("prevy", {"mymap":  "#entrance"});
+
+
+                    break;
+                case 2:
+                    // at amma
+                    nextElement.setAttribute("nexty", {"mymap":  "#pen-shadow"});
+                    prevElement.setAttribute("prevy", {"mymap":  "#walkingdown-right"})
+                    break;
+                case 3:
+                    //at penshadow
+                    nextElement.setAttribute("nexty", {"mymap":  "#anamorphic"});
+                    prevElement.setAttribute("prevy", {"mymap":  "#amma-photo"});
+                    break;
+                case 4:
+                    //at anamorphic
+                    nextElement.setAttribute("nexty", {"mymap":  "#bookwall"});
+                    prevElement.setAttribute("prevy", {"mymap":  "#pen-shadow"});
+                
+                    break;
+                case 5:
+                    //at bookwall
+                    nextElement.setAttribute("nexty", {"mymap":  "#blockart"});
+                    prevElement.setAttribute("prevy", {"mymap":  "#anamorphic"});
+                    break;
+                case 6:
+                    //at block art
+                    nextElement.setAttribute("nexty", {"mymap":  "#pixel-art"});
+                    prevElement.setAttribute("prevy", {"mymap":  "#bookwall"});
+                    break;
+                case 7:
+                    //at pixel art
+                    nextElement.setAttribute("nexty", {"mymap":  "#lastwall"});
+                    prevElement.setAttribute("prevy", {"mymap":  "#block-art"});
+                    break;
+                case 8:
+                    //at the lastwall
+                    nextElement.setAttribute("nexty", {"mymap":  "#entrance"});
+                    prevElement.setAttribute("prevy", {"mymap":  "#entrance"});
+                    break;
+                default:
+                    break;
+            }
+        }
+    </script>
   </body>
 </html>
