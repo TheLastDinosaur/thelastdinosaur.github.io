@@ -94,15 +94,16 @@
   <body>
     <a-scene>
       <a-assets>
-        <img id="entrance" crossorigin="anonymous" src="./images/1.png">
-        <img id="walkingdown-right" crossorigin="anonymous" src="./images/2.jpg">
-        <img id="amma-photo" crossorigin="anonymous" src="./images/33.jpg">
-        <img id="pen-shadow" crossorigin="anonymous" src="./images/9.jpg">
-        <img id="anamorphic" crossorigin="anonymous" src="./images/4.jpg">
-        <img id="bookwall" crossorigin="anonymous" src="./images/5.jpg">
-        <img id="block-art" crossorigin="anonymous" src="./images/6.jpg">
-        <img id="pixel-art" crossorigin="anonymous" src="./images/3.jpg">
-        <img id="lastwall" crossorigin="anonymous" src="./images/7.jpg">
+        <img id="entrance" crossorigin="anonymous" src="./images/1_Panorama.jpg">
+        <img id="walkingdown-right" crossorigin="anonymous" src="./images/2_Panorama.jpg">
+        <img id="amma-photo" crossorigin="anonymous" src="./images/3_Panorama.jpg">
+        <img id="pen-shadow" crossorigin="anonymous" src="./images/4_Panorama.jpg">
+        <img id="anamorphic" crossorigin="anonymous" src="./images/5_Panorama.jpg">
+        <img id="anamorphic2" crossorigin="anonymous" src="./images/6_Panorama.jpg">
+        <img id="bookwall" crossorigin="anonymous" src="./images/7_Panorama.jpg">
+        <img id="block-art" crossorigin="anonymous" src="./images/8_Panorama.jpg">
+        <img id="pixel-art" crossorigin="anonymous" src="./images/10_Panorama.jpg">
+        <img id="lastwall" crossorigin="anonymous" src="./images/9_Panorama.jpg">
 
 
 
@@ -119,8 +120,8 @@
              ></a-sky>
 
       <!-- Image links. -->
-      <a-entity id="links"  position="0 -0.1 -1" rotation="90 0 0" scale="0.5 0.5 0.5">
-        <a-text value="Next" position="-0.5 0 0" ></a-text>
+      <a-entity id="links"  position="0 -0.1 -3" rotation="90 0 0" scale="0.5 0.5 0.5">
+        <!-- <a-text value="Next" position="-0.5 0 0" ></a-text> -->
         <a-entity class="link"
         position = "0.5 0 0"
         rotation="0 0 0"
@@ -144,7 +145,7 @@
         animation__scaleup="property: scale; to: 1.2 1.2 1.2 dur: 100; easing: easeInOutSine; startEvents: upscale"
         animation__scaledown="property: scale; to: 1 1 1 dur: 100; easing: easeInOutSine; startEvents: downscale"
         >
-        <a-text value="Previous" position="0.5 0.6 0" rotation="0 0 180"
+        <!-- <a-text value="Previous" position="0.5 0.6 0" rotation="0 0 180" -->
         ></a-text>
     </a-entity>
             <!-- <a-entity template="src: #link" data-src="#amma-photo" data-thumb="#waypoint" ></a-entity> -->
@@ -165,7 +166,7 @@
     </a-scene>
     <script>
         var screneController = 0;
-        var maxScreenController = 9;
+        var maxScreenController = 10;
         var trigger = document.getElementById('controller');
         var nextElement = document.getElementById("next");
         var prevElement = document.getElementById('prev');
@@ -241,22 +242,31 @@
                     break;
                 case 4:
                     //at anamorphic
-                    nextElement.setAttribute("nexty", {"mymap":  "#bookwall"});
+                    nextElement.setAttribute("nexty", {"mymap":  "#anamorphic2"});
                     prevElement.setAttribute("prevy", {"mymap":  "#pen-shadow"});
                     nextElement.setAttribute("rotation", "0 0 180");
                     prevElement.setAttribute("rotation", "0 0 0");
 
                 
                     break;
-                case 5:
+                    case 5:
+                    //at anamorphic2
+                    nextElement.setAttribute("nexty", {"mymap":  "#bookwall"});
+                    prevElement.setAttribute("prevy", {"mymap":  "#anamorphic"});
+                    nextElement.setAttribute("rotation", "0 0 180");
+                    prevElement.setAttribute("rotation", "0 0 0");
+
+                
+                    break;
+                case 6:
                     //at bookwall
                     nextElement.setAttribute("nexty", {"mymap":  "#block-art"});
-                    prevElement.setAttribute("prevy", {"mymap":  "#anamorphic"});
+                    prevElement.setAttribute("prevy", {"mymap":  "#anamorphic2"});
                     nextElement.setAttribute("rotation", "0 0 -90");
                     prevElement.setAttribute("rotation", "0 0 90");
 
                     break;
-                case 6:
+                case 7:
                     //at block art
                     nextElement.setAttribute("nexty", {"mymap":  "#pixel-art"});
                     prevElement.setAttribute("prevy", {"mymap":  "#bookwall"});
@@ -264,7 +274,7 @@
                     prevElement.setAttribute("rotation", "0 0 90");
 
                     break;
-                case 7:
+                case 8:
                     //at pixel art
                     nextElement.setAttribute("nexty", {"mymap":  "#lastwall"});
                     prevElement.setAttribute("prevy", {"mymap":  "#block-art"});
@@ -272,7 +282,7 @@
                     prevElement.setAttribute("rotation", "0 0 0");
 
                     break;
-                case 8:
+                case 9:
                     //at the lastwall
                     nextElement.setAttribute("nexty", {"mymap":  "#entrance"});
                     prevElement.setAttribute("prevy", {"mymap":  "#pixel-art"});
