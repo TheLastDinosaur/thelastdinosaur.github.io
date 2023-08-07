@@ -107,7 +107,7 @@
 
 
 
-        
+        <img id="logo" src="./images/gurupriyam_logo.jpg">
         <img id="waypoint" crossorigin="anonymous" src="./images/arrow_mark.png">
 
         <audio id="click-sound" crossorigin="anonymous" src="https://cdn.aframe.io/360-image-gallery-boilerplate/audio/click.ogg"></audio>
@@ -153,6 +153,8 @@
 
       <!-- Camera + cursor. -->
       <a-entity camera look-controls >
+        <a-plane src="#logo" height=".35" width=".4" rotation="0 0 0" position="2 2 -3" material="blending:multiply"></a-plane>
+        </a-plane>
         <a-cursor
           id="cursor"
           color= "blue"
@@ -262,16 +264,20 @@
                     //at bookwall
                     nextElement.setAttribute("nexty", {"mymap":  "#block-art"});
                     prevElement.setAttribute("prevy", {"mymap":  "#anamorphic2"});
-                    nextElement.setAttribute("rotation", "0 0 -90");
-                    prevElement.setAttribute("rotation", "0 0 90");
+                    // nextElement.setAttribute("rotation", "0 0 -90");
+                    // prevElement.setAttribute("rotation", "0 0 90");
+                    nextElement.setAttribute("rotation", "0 0 180");
+                    prevElement.setAttribute("rotation", "0 0 0");
 
                     break;
                 case 7:
                     //at block art
                     nextElement.setAttribute("nexty", {"mymap":  "#pixel-art"});
                     prevElement.setAttribute("prevy", {"mymap":  "#bookwall"});
-                    nextElement.setAttribute("rotation", "0 0 -90");
-                    prevElement.setAttribute("rotation", "0 0 90");
+                    // nextElement.setAttribute("rotation", "0 0 -90");
+                    // prevElement.setAttribute("rotation", "0 0 90");
+                    nextElement.setAttribute("rotation", "0 0 180");
+                    prevElement.setAttribute("rotation", "0 0 0");
 
                     break;
                 case 8:
