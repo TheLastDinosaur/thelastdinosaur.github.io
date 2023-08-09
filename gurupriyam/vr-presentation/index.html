@@ -176,10 +176,13 @@
         trigger.addEventListener("next", setupNext);
         trigger.addEventListener("prev", setupPrev);
 
-        
+        var sky = document.getElementById("image-360");
+
 
 
         function setupNext() {
+
+            console.log("called next");
             if(screneController < maxScreenController){
                 screneController+=1;
             } 
@@ -190,6 +193,8 @@
                 screneController = maxScreenController
             }
             
+            sky.emit('fade');
+
             SwitchData()
 
             console.log(screneController)
@@ -218,6 +223,8 @@
                     prevElement.setAttribute("prevy", {"mymap":  "#lastwall"});
                     nextElement.setAttribute("rotation", "0 0 0");
                     prevElement.setAttribute("rotation", "0 0 180");
+                    sky.setAttribute("src", "#entrance");
+
                     break;
                 case 1:
                     //going down
@@ -225,6 +232,8 @@
                     prevElement.setAttribute("prevy", {"mymap":  "#entrance"});
                     nextElement.setAttribute("rotation", "0 0 -90");
                     prevElement.setAttribute("rotation", "0 0 90");
+                    sky.setAttribute("src", "#walkingdown-right");
+
                     break;
                 case 2:
                     // at amma
@@ -232,6 +241,8 @@
                     prevElement.setAttribute("prevy", {"mymap":  "#walkingdown-right"})
                     nextElement.setAttribute("rotation", "0 0 180");
                     prevElement.setAttribute("rotation", "0 0 90");
+                    sky.setAttribute("src", "#amma-photo");
+
 
                     break;
                 case 3:
@@ -240,6 +251,8 @@
                     prevElement.setAttribute("prevy", {"mymap":  "#amma-photo"});
                     nextElement.setAttribute("rotation", "0 0 90");
                     prevElement.setAttribute("rotation", "0 0 0");
+                    sky.setAttribute("src", "#pen-shadow");
+
 
                     break;
                 case 4:
@@ -249,7 +262,8 @@
                     nextElement.setAttribute("rotation", "0 0 180");
                     prevElement.setAttribute("rotation", "0 0 0");
 
-                
+                    sky.setAttribute("src", "#anamorphic");
+
                     break;
                     case 5:
                     //at anamorphic2
@@ -257,6 +271,7 @@
                     prevElement.setAttribute("prevy", {"mymap":  "#anamorphic"});
                     nextElement.setAttribute("rotation", "0 0 180");
                     prevElement.setAttribute("rotation", "0 0 0");
+                    sky.setAttribute("src", "#anamorphic2");
 
                 
                     break;
@@ -268,6 +283,8 @@
                     // prevElement.setAttribute("rotation", "0 0 90");
                     nextElement.setAttribute("rotation", "0 0 180");
                     prevElement.setAttribute("rotation", "0 0 0");
+                    sky.setAttribute("src", "#bookwall");
+
 
                     break;
                 case 7:
@@ -278,6 +295,7 @@
                     // prevElement.setAttribute("rotation", "0 0 90");
                     nextElement.setAttribute("rotation", "0 0 180");
                     prevElement.setAttribute("rotation", "0 0 0");
+                    sky.setAttribute("src", "#block-art");
 
                     break;
                 case 8:
@@ -286,6 +304,8 @@
                     prevElement.setAttribute("prevy", {"mymap":  "#block-art"});
                     nextElement.setAttribute("rotation", "0 0 90");
                     prevElement.setAttribute("rotation", "0 0 0");
+                    sky.setAttribute("src", "#pixel-art");
+
 
                     break;
                 case 9:
@@ -294,12 +314,17 @@
                     prevElement.setAttribute("prevy", {"mymap":  "#pixel-art"});
                     nextElement.setAttribute("rotation", "0 0 180");
                     prevElement.setAttribute("rotation", "0 0 0");
+                    sky.setAttribute("src", "#lastwall");
 
                     break;
                 default:
                     break;
+
+
             }
         }
-    </script>
-  </body>
+
+
+        window.setInterval(setupNext, 10000);
+    </script>  </body>
 </html>
