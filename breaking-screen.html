@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity WebGL Player | glance</title>
   </head>
-  <body style="text-align: center; padding: 0; border: 0; margin: 0; background-color: #000;">
+  <body style="text-align: center; padding: 0; border: 0; margin: 0; background-color: black;">
     <canvas id="unity-canvas" width=540 height=960 style="width: 540px; height: 960px; background: #231F20"></canvas>
     <script src="Build/BUILD.loader.js"></script>
     <script>
@@ -25,9 +25,9 @@
       }
 
       createUnityInstance(document.querySelector("#unity-canvas"), {
-        dataUrl: "Build/BUILD.data.gz",
-        frameworkUrl: "Build/BUILD.framework.js.gz",
-        codeUrl: "Build/BUILD.wasm.gz",
+        dataUrl: "Build/BUILD.data",
+        frameworkUrl: "Build/BUILD.framework.js",
+        codeUrl: "Build/BUILD.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "glance",
