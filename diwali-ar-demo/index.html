@@ -1,38 +1,86 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AR Greetings Demo</title>
-    <style>
-      body {
-	margin: 0;
-      }
-      #container {
-	width: 100vw;
-	height: 100vh;
-	position: relative;
-	overflow: hidden;
-      }
-      #control {
-	position: fixed;
-	top: 0;
-	left: 0;
-	z-index: 2;
-      }
-    </style>
-    <script type="module" crossorigin src="./assets/index-85cdf067.js"></script>
-  </head>
-  <body>
-    <div id="control">
-      <button id="startButton">Start</button>
-      <button id="stopButton">Stop</button>
-    </div>
-    <div id="container">
-    </div>
 
-    
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Augmented Reality Greeting Card - Demo : DARE2.DIGITAL</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      color: white;
+    }
 
-  </body>
-  </html>
+    #container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #control {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 2;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      background-color: black;
+    }
+
+    .cont {
+      width: 80%;
+      max-width: 360px;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .buttons {
+      background-color: #35d0ba;
+      /* Green */
+      border: none;
+      color: white;
+      padding: 15px 80px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      border-radius: 1rem;
+      font-weight: bold;
+      font-size: 2rem;
+    }
+  </style>
+  <script type="module" crossorigin src="./diwali-ar-demo/assets/index-5b66e158.js"></script>
+</head>
+
+<body>
+  <div id="control">
+    <img src="/dhanya_logo.png" alt="" width="340px">
+    <div class="cont">
+      <h2>
+        The greeting card in your hand has some magic in it, click on the below button to view what it is.
+      </h2>
+      <p>
+        This is a sample creative, and only for demo purpose.
+      </p>
+    </div>
+    <button id="startButton" class="buttons">View in AR</button>
+    <img src="./dare_logo.jpg" alt="" width="100px" style="margin-top: 5rem;">
+
+    <!-- <button id="stopButton" class="buttons">Stop</button> -->
+  </div>
+  <div id="container">
+  </div>
+
+  
+
+</body>
+
+</html>
