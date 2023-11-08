@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="./dare_logo.jpg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vite App</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      color: white;
+    }
+
+    #container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #control {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 2;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      background-color: black;
+    }
+
+    .cont {
+      width: 80%;
+      max-width: 360px;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .buttons {
+      background-color: #35d0ba;
+      /* Green */
+      border: none;
+      color: white;
+      padding: 15px 80px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      border-radius: 1rem;
+      font-weight: bold;
+      font-size: 2rem;
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/index-6cc6c9b6.js"></script>
+</head>
+
+<body>
+  <div id="control">
+    <div class="cont">
+      <h2>
+        The card in your hand has some magic in it, click on the below button, give permission to use your camera, and show your card to experience something special made for you.
+        <br> &nbsp; <br> &nbsp;
+      </h2>
+     
+    </div>
+    <button id="startButton" class="buttons">View in AR</button>
+    <img src="./dare_logo.jpg" alt="" width="100px" style="margin-top: 5rem;">
+    <p>
+      © 2023 Copyright: <a href="https://dare2.digital/" target="_blank"></a>
+    </p>
+    <!-- <button id="stopButton" class="buttons">Stop</button> -->
+  </div>
+  <div id="container">
+  </div>
+
+  
+
+
+  
+
+</body>
+
+</html>
