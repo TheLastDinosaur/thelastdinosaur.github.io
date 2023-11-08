@@ -48,7 +48,6 @@
                     });
                     });
                     // text.flipY = false;
-
                     // Go over the submeshes and modify materials we want.
               
                   // });
@@ -133,11 +132,11 @@ button {
         </style>
   </head>
   <body>
-    <div class="intros" id="introdiv">
+    <!-- <div class="intros" id="introdiv">
       
-      <button id="play-button">View Chairman's Message in AR</button>
+      <button id="play-button">View Shoe in AR</button>
 
-    </div>
+    </div> -->
     <div class="interaction-items">
       <h2 style="text-align: center;">
         Choose a color to change
@@ -155,7 +154,7 @@ button {
 
 
     </div>
-    <a-scene mindar-image="imageTargetSrc: ./targets.mind; filterMinCF:0.1; autoStart: true" color-space="sRGB" renderer="colorManagement: true,physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+    <a-scene mindar-image="imageTargetSrc: ./targets.mind; filterMinCF:0.1; filterBeta: 0.1; autoStart: true" color-space="sRGB" renderer="colorManagement: true,physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
       <a-assets>
         <a-asset-item id="shoe" src="./nike_dunks_game_ready__2k_pbr.glb"></a-asset-item>
         <img id="red-shoe" src="./red.jpg">
@@ -184,7 +183,7 @@ button {
 
         <!-- <a-gltf-model rotation="90 0 0 " position="0 0.55 0.1" scale="0.07 0.07 0.07"  src="#logo" animation="property: rotation; to: 90 359 0; dur: 2000; easing: easeInOutQuad; loop: true;"></a-gltf-model> -->
         <a-entity look-controls="enabled: true" position="0 -0.2 0">
-          <a-gltf-model id="shoe-model" src="#shoe" scale="4 4 4" rotation="0 -90 0" ></a-gltf-model>
+          <a-gltf-model id="shoe-model" src="#shoe" scale="5 5 5" rotation="0 -90 0" ></a-gltf-model>
 
         </a-entity>
         <!-- <a-video src="#guru"></a-video> -->
