@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Click a Photo with Royal Twist Raja</title>
+
+  <style>
+    body {
+      margin: 0;
+    }
+
+    #container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    button {
+      /* padding: 2%; */
+      /* font-size: 2rem; */
+      background-color: rgba(0, 0, 0, 0);
+      border: 0;
+    }
+
+    #control {
+      position: fixed;
+      bottom: 20px;
+      left: 0;
+      z-index: 2;
+    }
+    .buttons{
+      /* position: relative; */
+      /* display: flex;
+      align-items: end;
+      justify-content: center; */
+      width: 100%;
+      transform: translateX(100%);
+
+
+    }
+  </style>
+  <script type="module" crossorigin src="./assets/index-YAh5UmoU.js"></script>
+</head>
+
+<body>
+  <div id="control">
+    <!-- <button id="startButton">img</button> -->
+    <div class="buttons">
+      <button id="stopButton"><img src="/textures/clickey.png" alt="" width="100px"></button>
+
+    </div>
+  </div>
+  <div id="container">
+  </div>
+
+  <!-- <img id="img" width="100%" height="100%" src="" alt=""> -->
+  <!-- <div class="di" id="asd"></div> -->
+</body>
+
+</html>
