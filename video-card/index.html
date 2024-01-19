@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="./dare_logo.jpg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Experience 3D Sparkles Greeting Card</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      color: white;
+    }
+
+    #container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #control {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 2;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      background-color: black;
+    }
+
+    .cont {
+      width: 80%;
+      max-width: 360px;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .buttons {
+      background-color: #35d0ba;
+      /* Green */
+      border: none;
+      color: white;
+      padding: 15px 80px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      border-radius: 1rem;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    
+    #startexperience{
+      opacity: 0;
+      -webkit-transition: opacity 0.5s ease-in-out;
+    -moz-transition: opacity 0.5s ease-in-out;
+    transition: opacity 0.5s ease-in-out;
+      
+    }
+    #loadingbar{
+      height: 10px;
+      background-color: #747CD7;
+      width: 1%;
+    }
+    .lighty{
+      color: #747CD7;
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/index-SGjYQx4t.js"></script>
+</head>
+
+<body>
+  <div id="control">
+    <div class="cont">
+     
+      <div id="startexperience">
+        
+        <h2>
+        
+
+          Channel your inner magician!
+      
+            </h2>
+             <p>
+              This card is brimming with hidden potential, and you're the one to unlock it. <br> <br>
+              <b>
+              Click the button below, allow camera access (it's safe, we promise!), and hold your card  up </b>to reveal something magical made just for you. Prepare to be spellbound! 🪄
+             </p>
+            <p class="lighty">This Augmented Reality Card shines in good light! So, grab some sunshine or flip on a lamp for the full experience.</p>
+           
+
+
+      <button id="startButton" class="buttons">View in AR</button>
+
+        </h2>
+      </div>
+
+      <div id="loader">
+        <p id="loadingtext">Gearing up for your AR adventure!</p>
+        <div id="loadingbar">
+
+        </div>
+      </div>
+
+
+    </div>
+    <img src="./dare_logo.jpg" alt="" width="100px" style="margin-top: 5rem;">
+    <p>
+      © 2023 Copyright: <a href="https://dare2.digital/" target="_blank">DARE DIGITAL</a>
+    </p>
+    <!-- <button id="stopButton" class="buttons">Stop</button> -->
+  </div>
+  <div id="container">
+  </div>
+
+  
+
+
+
+</body>
+
+</html>
